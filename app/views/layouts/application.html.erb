@@ -10,6 +10,35 @@
   </head>
 
   <body>
+    
+    <h1><%= @current_month.month.strftime("%B/%Y") %></h1>
+    <h2>To be budgeted: <%= number_to_currency @current_month.to_be_budgeted %></h2>
+    <div>
+      <h3>Models</h3>
+      <%= link_to 'Account', accounts_path %>
+      <%= link_to 'Categories', categories_path %>
+      <%= link_to 'Groups', groups_path %>
+      <%= link_to 'Months', payees_path %>
+      <%= link_to 'Payees', payees_path %>
+      <%= link_to 'Transactions', transactions_path %>
+    </div>
+
+    <hr>
+    <h3>Accounts</h3>
+    <div>
+      <% Account.all.each do |acc| %>
+        <%= acc.name %> <%= number_to_currency acc.balance %>
+        <% unless acc == Account.all.last %> | <% end %>
+      <% end %>
+    </div>
+
+    <hr>
+    <h4>Categories</h4>
+    <ul>
+      <% Category.all.each do |cat| %>
+        <li><%= cat.name %> | <strong>Saldo: </strong><%= number_to_currency cat.balance %> | <strong>Atividade:</strong> <%= number_to_currency cat.activity %></li>
+      <% end %>
+    </ul>
     <%= yield %>
   </body>
 </html>

@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Month:</strong>
+  <%= @month.month %>
+</p>
+
+<p>
+  <strong>Income:</strong>
+  <%= @month.income %>
+</p>
+
+<p>
+  <strong>Budgeted:</strong>
+  <%= @month.budgeted %>
+</p>
+
+<p>
+  <strong>Activity:</strong>
+  <%= @month.activity %>
+</p>
+
+<p>
+  <strong>To be budgeted:</strong>
+  <%= @month.to_be_budgeted %>
+</p>
+
+<%= link_to 'Edit', edit_month_path(@month) %> |
+<%= link_to 'Back', months_path %>

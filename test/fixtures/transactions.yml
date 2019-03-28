@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  date: 2019-03-22
+  amount: 9.99
+  account: one
+  payee: one
+  category: one
+  transfer_account_id: one
+  transfer_transaction_id: one
+
+two:
+  date: 2019-03-22
+  amount: 9.99
+  account: two
+  payee: two
+  category: two
+  transfer_account_id: two
+  transfer_transaction_id: two

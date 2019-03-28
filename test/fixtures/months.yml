@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  month: 2019-03-22
+  income: 9.99
+  budgeted: 9.99
+  activity: 9.99
+  to_be_budgeted: 9.99
+
+two:
+  month: 2019-03-22
+  income: 9.99
+  budgeted: 9.99
+  activity: 9.99
+  to_be_budgeted: 9.99

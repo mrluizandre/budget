@@ -5,3 +5,7 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+Month.create!(month: Date.today.at_beginning_of_month)
+Category.create!(name: "To be budgeted")
+Group.create!(name: "Inflow")
