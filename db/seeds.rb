@@ -7,5 +7,5 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 Month.create!(month: Date.today.at_beginning_of_month)
-Category.create!(name: "To be budgeted")
+Category.create!(name: "To be budgeted", to_be_budgeted: true)
 Group.create!(name: "Inflow")
