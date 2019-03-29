@@ -6,20 +6,35 @@ class Transaction < ApplicationRecord
   belongs_to :transfer_transaction, class_name: 'Transaction', optional: true
 
   before_save :change_category_balance_and_activity
-
   before_destroy :undo_changes
 
+  validate :inflow_xor_outflow
+
+  def amount
+    if self.inflow.present?
+      return self.inflow
+    elsif self.outflow.present?
+      return -self.outflow
+    end
+  end
+
   private
+    def inflow_xor_outflow
+      unless inflow.blank? ^ outflow.blank?
+        errors.add(:base, "Specify an inflow or an outflow, not both")
+      end
+    end
+
 	  def change_category_balance_and_activity
 	  	return if self.transfer_account.present?
-	  	self.category.decrease_balance self.amount
-	  	self.category.decrease_activity self.amount
-      self.account.decrease_balance self.amount
+	  	self.category.change_balance self.amount
+	  	self.category.change_activity self.amount
+      self.account.change_balance self.amount
 	  end
 
     def undo_changes
-      self.category.increase_balance self.amount
-      self.category.increase_activity self.amount
-      self.account.increase_balance self.amount
+      self.category.change_balance -self.amount
+      self.category.change_activity -self.amount
+      self.account.change_balance -self.amount
     end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_28_020704) do
+ActiveRecord::Schema.define(version: 2019_03_29_024422) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,7 +56,6 @@ ActiveRecord::Schema.define(version: 2019_03_28_020704) do
 
   create_table "transactions", force: :cascade do |t|
     t.date "date"
-    t.decimal "amount", precision: 8, scale: 2
     t.bigint "account_id"
     t.bigint "payee_id"
     t.bigint "category_id"
@@ -64,6 +63,8 @@ ActiveRecord::Schema.define(version: 2019_03_28_020704) do
     t.bigint "transfer_transaction_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.decimal "inflow", precision: 8, scale: 2
+    t.decimal "outflow", precision: 8, scale: 2
     t.index ["account_id"], name: "index_transactions_on_account_id"
     t.index ["category_id"], name: "index_transactions_on_category_id"
     t.index ["payee_id"], name: "index_transactions_on_payee_id"

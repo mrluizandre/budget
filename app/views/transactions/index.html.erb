@@ -7,6 +7,8 @@
     <tr>
       <th>Date</th>
       <th>Amount</th>
+      <th>Inflow</th>
+      <th>Outflow</th>
       <th>Account</th>
       <th>Payee</th>
       <th>Category</th>
@@ -21,6 +23,8 @@
       <tr>
         <td><%= transaction.date %></td>
         <td><%= transaction.amount %></td>
+        <td><%= transaction.inflow %></td>
+        <td><%= transaction.outflow %></td>
         <td><%= transaction.account.name %></td>
         <td><%= transaction.payee.name %></td>
         <td><%= transaction.category.name %></td>
