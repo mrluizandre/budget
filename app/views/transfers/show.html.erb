@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Account from:</strong>
+  <%= @transfer.account_from_id %>
+</p>
+
+<p>
+  <strong>Account to:</strong>
+  <%= @transfer.account_to_id %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= @transfer.amount %>
+</p>
+
+<%= link_to 'Edit', edit_transfer_path(@transfer) %> |
+<%= link_to 'Back', transfers_path %>

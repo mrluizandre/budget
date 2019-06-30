@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_29_031201) do
+ActiveRecord::Schema.define(version: 2019_06_30_014144) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -73,9 +73,21 @@ ActiveRecord::Schema.define(version: 2019_03_29_031201) do
     t.index ["transfer_transaction_id"], name: "index_transactions_on_transfer_transaction_id"
   end
 
+  create_table "transfers", force: :cascade do |t|
+    t.bigint "account_from_id"
+    t.bigint "account_to_id"
+    t.decimal "amount", precision: 8, scale: 2
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_from_id"], name: "index_transfers_on_account_from_id"
+    t.index ["account_to_id"], name: "index_transfers_on_account_to_id"
+  end
+
   add_foreign_key "transactions", "accounts"
   add_foreign_key "transactions", "accounts", column: "transfer_account_id"
   add_foreign_key "transactions", "categories"
   add_foreign_key "transactions", "payees"
   add_foreign_key "transactions", "transactions", column: "transfer_transaction_id"
+  add_foreign_key "transfers", "accounts", column: "account_from_id"
+  add_foreign_key "transfers", "accounts", column: "account_to_id"
 end
