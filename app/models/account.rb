@@ -1,4 +1,5 @@
 class Account < ApplicationRecord
+	has_many :transactions
 	enum account_type: {checking: 0, credit_card: 1}
 
 	def change_balance(val)

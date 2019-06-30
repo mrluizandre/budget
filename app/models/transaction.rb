@@ -13,7 +13,7 @@ class Transaction < ApplicationRecord
   def amount
     if self.inflow.present?
       return self.inflow
-    elsif self.outflow.present?
+      elsif self.outflow.present?
       return -self.outflow
     end
   end
@@ -21,7 +21,7 @@ class Transaction < ApplicationRecord
   private
     def inflow_xor_outflow
       unless inflow.blank? ^ outflow.blank?
-        errors.add(:base, "Specify an inflow or an outflow, not both")
+        errors.add(:base, "Specify an inflow or an outflow, not both or none")
       end
     end
 
