@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_30_014144) do
+ActiveRecord::Schema.define(version: 2019_07_02_032632) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,8 @@ ActiveRecord::Schema.define(version: 2019_06_30_014144) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "to_be_budgeted", default: false
+    t.bigint "linked_credit_card_account_id"
+    t.index ["linked_credit_card_account_id"], name: "index_categories_on_linked_credit_card_account_id"
   end
 
   create_table "groups", force: :cascade do |t|
@@ -83,6 +85,7 @@ ActiveRecord::Schema.define(version: 2019_06_30_014144) do
     t.index ["account_to_id"], name: "index_transfers_on_account_to_id"
   end
 
+  add_foreign_key "categories", "accounts", column: "linked_credit_card_account_id"
   add_foreign_key "transactions", "accounts"
   add_foreign_key "transactions", "accounts", column: "transfer_account_id"
   add_foreign_key "transactions", "categories"

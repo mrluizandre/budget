@@ -1,4 +1,5 @@
 class Category < ApplicationRecord
+	belongs_to :linked_credit_card_account, class_name: 'Account', optional: true
 	validates_uniqueness_of :to_be_budgeted, if: :to_be_budgeted
 
 	def change_balance(val)
