@@ -16,4 +16,6 @@
 //= require jquery3
 //= require popper
 //= require bootstrap
+//= require jquery-ui/widgets/datepicker
+//= require jquery-ui/i18n/datepicker-pt-BR
 //= require_tree .

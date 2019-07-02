@@ -12,10 +12,10 @@
   <body>
     
     <div class="container-fluid">
-      <h1><%= link_to @current_month.month.strftime("%B/%Y"), root_path %></h1>
-      <h2>To be budgeted: <%= number_to_currency @current_month.to_be_budgeted %></h2>
+      <!-- <h1><%= link_to @current_month.month.strftime("%B/%Y"), root_path %></h1>
+      <h2>To be budgeted: <%= number_to_currency @current_month.to_be_budgeted %></h2> -->
+      <h1><%= link_to 'Budget', root_path %></h1>
       <div>
-        <h3>Models</h3>
         <%= link_to 'Account', accounts_path %>
         <%= link_to 'Categories', categories_path %>
         <%= link_to 'Groups', groups_path %>
@@ -28,7 +28,7 @@
       <div class="row">
         <div class="col-3">
           <h3>Accounts</h3>
-          <table class="table table-bordered">
+          <table class="table table-bordered table-sm">
             <thead>
               <tr>
                 <th>Conta</th>
@@ -36,10 +36,13 @@
               </tr>
             </thead>
             <tbody>
-              <% Account.all.each do |acc| %>
+              <% Account.order(name: :asc).each do |acc| %>
                 <tr>
-                    <td><%= acc.name %></td>
-                    <td><%= number_to_currency acc.balance %></td>
+                    <td>
+                      <%= link_to acc.name, transactions_account_path(acc) %>
+                      <%= link_to '+', new_transaction_path(account_id: acc), class: 'btn btn-outline-secondary btn-sm float-right' %>
+                    </td>
+                    <td class="text-right"><%= number_to_currency acc.balance %></td>
                 </tr>
               <% end %>
             </tbody>
@@ -47,26 +50,6 @@
         </div>
 
         <div class="col-9">
-            <h4>Categories</h4>
-
-            <table class="table table-bordered">
-              <thead>
-                <tr>
-                  <th>Nome</th>
-                  <th>Saldo</th>
-                  <th>Atividade</th>
-                </tr>
-              </thead>
-              <tbody>
-                <% Category.all.each do |cat| %>
-                  <tr>
-                    <td><%= cat.name %></td>
-                    <td><%= number_to_currency cat.balance %></td>
-                    <td><%= number_to_currency cat.activity %></td>
-                  </tr>
-                <% end %>
-              </tbody>
-            </table>
             <%= yield %>
         </div>
       </div>

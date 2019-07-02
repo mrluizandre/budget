@@ -4,14 +4,17 @@
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
   <div class="form-inputs">
-    <%= f.input :date %>
-    <%= f.input :inflow %>
-    <%= f.input :outflow %>
-    <%= f.association :account %>
-    <%= f.association :payee %>
-    <%= f.association :category %>
-    <%= f.association :transfer_account %>
-    <%= f.association :transfer_transaction %>
+    <div class="row">
+      <%= f.association :account, selected: params[:account_id], wrapper_html: { class: 'col-12 col-sm-2'} %>
+      <%= f.input :date,
+            as: :string,
+            input_html: { class: 'datepicker', value: f.object.date.present? ? f.object.date.strftime("%d/%m/%Y") : Date.today.strftime("%d/%m/%Y") },
+            wrapper_html: { class: 'col-12 col-sm-2'}%>
+      <%= f.input :inflow, wrapper_html: { class: 'col-12 col-sm-2'} %>
+      <%= f.input :outflow, wrapper_html: { class: 'col-12 col-sm-2'} %>
+      <%= f.association :payee, wrapper_html: { class: 'col-12 col-sm-2'} %>
+      <%= f.association :category, wrapper_html: { class: 'col-12 col-sm-2'} %>
+    </div>
   </div>
 
   <div class="form-actions">
