@@ -26,14 +26,18 @@ class Transaction < ApplicationRecord
     end
 
 	  def change_category_balance_and_activity
-	  	return if self.transfer_account.present?
 	  	self.category.change_balance self.amount
+      # move the amount to credit card related category
+      self.account.category.change_balance -self.amount if self.account.credit_card?
+        
 	  	self.category.change_activity self.amount
       self.account.change_balance self.amount
 	  end
 
     def undo_changes
       self.category.change_balance -self.amount
+      # move the amount to credit card related category
+      self.account.category.change_balance self.amount if self.account.credit_card?
       self.category.change_activity -self.amount
       self.account.change_balance -self.amount
     end
