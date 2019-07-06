@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_02_032632) do
+ActiveRecord::Schema.define(version: 2019_07_05_220047) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,6 +57,21 @@ ActiveRecord::Schema.define(version: 2019_07_02_032632) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "scheduled_transactions", force: :cascade do |t|
+    t.date "date"
+    t.bigint "account_id"
+    t.bigint "payee_id"
+    t.bigint "category_id"
+    t.decimal "inflow", precision: 8, scale: 2
+    t.decimal "outflow", precision: 8, scale: 2
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "done", default: false
+    t.index ["account_id"], name: "index_scheduled_transactions_on_account_id"
+    t.index ["category_id"], name: "index_scheduled_transactions_on_category_id"
+    t.index ["payee_id"], name: "index_scheduled_transactions_on_payee_id"
+  end
+
   create_table "transactions", force: :cascade do |t|
     t.date "date"
     t.bigint "account_id"
@@ -86,6 +101,9 @@ ActiveRecord::Schema.define(version: 2019_07_02_032632) do
   end
 
   add_foreign_key "categories", "accounts", column: "linked_credit_card_account_id"
+  add_foreign_key "scheduled_transactions", "accounts"
+  add_foreign_key "scheduled_transactions", "categories"
+  add_foreign_key "scheduled_transactions", "payees"
   add_foreign_key "transactions", "accounts"
   add_foreign_key "transactions", "accounts", column: "transfer_account_id"
   add_foreign_key "transactions", "categories"

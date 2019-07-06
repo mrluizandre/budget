@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :scheduled_transactions
   get 'pages/index'
   resources :transfers
   resources :transactions

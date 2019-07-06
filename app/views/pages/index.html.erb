@@ -1,25 +1,30 @@
 <table class="table table-bordered table-sm">
   <thead>
     <tr>
-      <th>Nome</th>
-      <th>Saldo</th>
-      <th>Atividade</th>
+      <th>Category</th>
+      <th>Budgeted</th>
+      <th>Activity</th>
+      <th>Available</th>
     </tr>
   </thead>
   <tbody>
     <% Category.order(name: :asc).each do |cat| %>
       <tr>
         <td><%= cat.name %></td>
-        <td>
-          <!--<%= number_to_currency cat.balance %>-->
+        <td><%= number_to_currency cat.budgeted %></td>
+        <td><%= number_to_currency cat.activity %></td>
+        <td class="text-right">
+          <span class="badge badge-pill badge-lg <%= badge_color cat.balance %>" style="font-size: 1rem; font-weight: normal;">
+            <%= number_to_currency cat.balance %>
+          </span>
+          <!--
           <%= form_tag(budget_category_path(cat), html: { class: 'form-inline' }) do %>
               <%= number_field_tag :balance, cat.balance, step: 0.01 %>
                     
               <%= submit_tag 'Save', class: 'btn btn-outline-secondary btn-sm' %>
           <% end %>
-
+        -->
         </td>
-        <td><%= number_to_currency cat.activity %></td>
       </tr>
     <% end %>
   </tbody>

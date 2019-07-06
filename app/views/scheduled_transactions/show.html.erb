@@ -1,0 +1,32 @@
+<p>
+  <strong>Date:</strong>
+  <%= @scheduled_transaction.date %>
+</p>
+
+<p>
+  <strong>Account:</strong>
+  <%= @scheduled_transaction.account %>
+</p>
+
+<p>
+  <strong>Payee:</strong>
+  <%= @scheduled_transaction.payee %>
+</p>
+
+<p>
+  <strong>Category:</strong>
+  <%= @scheduled_transaction.category %>
+</p>
+
+<p>
+  <strong>Inflow:</strong>
+  <%= @scheduled_transaction.inflow %>
+</p>
+
+<p>
+  <strong>Outflow:</strong>
+  <%= @scheduled_transaction.outflow %>
+</p>
+
+<%= link_to 'Edit', edit_scheduled_transaction_path(@scheduled_transaction) %> |
+<%= link_to 'Back', scheduled_transactions_path %>

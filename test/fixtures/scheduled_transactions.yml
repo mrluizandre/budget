@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  date: 2019-07-05
+  account: one
+  payee: one
+  category: one
+  inflow: 9.99
+  outflow: 9.99
+
+two:
+  date: 2019-07-05
+  account: two
+  payee: two
+  category: two
+  inflow: 9.99
+  outflow: 9.99

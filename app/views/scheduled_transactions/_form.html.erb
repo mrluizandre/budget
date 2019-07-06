@@ -1,0 +1,23 @@
+<%= simple_form_for(@scheduled_transaction) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="form-inputs">
+    <div class="row">
+      <%= f.association :account, selected: params[:account_id], wrapper_html: { class: 'col-12 col-sm-2'} %>
+      <%= f.input :date,
+            as: :string,
+            input_html: { class: 'datepicker', value: f.object.date.present? ? f.object.date.strftime("%d/%m/%Y") : Date.today.strftime("%d/%m/%Y") },
+            wrapper_html: { class: 'col-12 col-sm-2'}%>
+      <%= f.input :inflow, wrapper_html: { class: 'col-12 col-sm-2'} %>
+      <%= f.input :outflow, wrapper_html: { class: 'col-12 col-sm-2'} %>
+      <%= f.association :payee, wrapper_html: { class: 'col-12 col-sm-2'} %>
+      <%= f.association :category, wrapper_html: { class: 'col-12 col-sm-2'} %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, class: 'btn btn-outline-primary' %>
+  </div>
+<% end %>
+

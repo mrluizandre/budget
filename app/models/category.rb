@@ -14,8 +14,8 @@ class Category < ApplicationRecord
 
 	def self.budget(amount, to, from=Category.where(to_be_budgeted: true).first)
 		ActiveRecord::Base.transaction do
-		  from.update!(balance: from.balance - amount)
-		  to.update!(balance: to.balance + amount)
+		  from.update!(balance: from.balance - amount, budgeted: from.budgeted - amount)
+		  to.update!(balance: to.balance + amount, budgeted: to.budgeted + amount)
 		end
 	end
 end
