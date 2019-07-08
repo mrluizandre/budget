@@ -3,7 +3,7 @@ class CategoriesController < ApplicationController
 
 
   def budget
-    Category.budget(params[:balance].to_f - @category.balance,@category)
+    Category.budget(params[:budgeted].to_f - @category.budgeted,@category)
     redirect_to root_path
   end
 

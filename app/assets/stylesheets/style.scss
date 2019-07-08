@@ -1,0 +1,47 @@
+*{
+	font-family: 'Lato', sans-serif;
+}
+
+.badge {
+	font-size: 1rem;
+	font-weight: normal;
+}
+
+.badge-success{
+	color: #143D0B;
+	background-color: #C4ECBB;
+}
+
+.badge-warning{
+	color: #2A1704;
+	background-color: #F5DD80;
+}
+
+.badge-danger{
+	color: #300B03;
+	background-color: #FCAA9C;
+}
+
+.badge-secondary{
+	color: #88979d;
+	background-color: #e9eced;
+}
+
+.navbar-tobebudgeted{
+	color: #143D0B;
+	background-color: #C4ECBB;
+	padding: .3rem .75rem;
+	border-radius: .4rem;
+	font-size: 2rem;
+	font-weight: 300;
+
+
+	.description{
+		font-size: .9rem;
+		font-weight: normal;
+	}
+}
+
+// .sidebar{
+// 	color: #ffffff;
+// }

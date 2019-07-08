@@ -6,11 +6,12 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet"> 
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-info sticky-top">
       <%= link_to 'Budget', root_path, class: 'navbar-brand' %>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -43,19 +44,27 @@
           </li>
         </ul>
       </div>
+
+      <div class="navbar-tobebudgeted">
+        <div class="value">
+          R$ 200
+        </div>
+        <div class="description">
+          To be budgeted
+        </div>
+      </div>
     </nav>
-    
     <div class="container-fluid">
       <!-- <h1><%= link_to @current_month.month.strftime("%B/%Y"), root_path %></h1>
       <h2>To be budgeted: <%= number_to_currency @current_month.to_be_budgeted %></h2> -->
       <div class="row">
-        <div class="col-3">
+        <div class="col-3 sidebar">
           <h3>Accounts</h3>
-          <table class="table table-bordered table-sm">
+          <table class="table table-bordered table-sm table-accounts">
             <thead>
               <tr>
-                <th>Conta</th>
-                <th>Saldo</th>
+                <th>Account</th>
+                <th>Balance</th>
               </tr>
             </thead>
             <tbody>
@@ -77,7 +86,11 @@
                       <%= link_to acc.name, transactions_account_path(acc) %>
                       <%= link_to '+', new_transaction_path(account_id: acc), class: 'btn btn-outline-secondary btn-sm float-right' %>
                     </td>
-                    <td class="text-right"><%= number_to_currency acc.balance %></td>
+                    <td class="text-right">
+                      <span class="badge badge-pill badge-lg <%= badge_color acc.balance %>">
+                        <%= number_to_currency acc.balance %>
+                      </span>
+                    </td>
                 </tr>
               <% end %>
             </tbody>

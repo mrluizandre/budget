@@ -1,12 +1,12 @@
-<h1>Transactions</h1>
+<h1><%= @account.name %>  Transactions</h1>
 
-<table class="table table-bordered">
+<%= link_to 'New Transaction', new_transaction_path, class: 'btn btn-outline-primary' %>
+<br><br>
+<table class="table table-bordered table-sm">
   <thead>
     <tr>
       <th>Date</th>
       <th>Amount</th>
-      <th>Inflow</th>
-      <th>Outflow</th>
       <th>Account</th>
       <th>Payee</th>
       <th>Category</th>
@@ -17,21 +17,19 @@
   <tbody>
     <% @transactions.each do |transaction| %>
       <tr>
-        <td><%= transaction.date %></td>
+        <td><%= transaction.date.strftime("%d/%m/%Y") %></td>
         <td><%= number_to_currency transaction.amount %></td>
-        <td><%= number_to_currency transaction.inflow %></td>
-        <td><%= number_to_currency transaction.outflow %></td>
         <td><%= transaction.account.name %></td>
         <td><%= transaction.payee.name %></td>
         <td><%= transaction.category.name %></td>
-        <td><%= link_to 'Show', transaction %></td>
-        <td><%= link_to 'Edit', edit_transaction_path(transaction) %></td>
-        <td><%= link_to 'Destroy', transaction, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td>
+          <div class="btn-group btn-group-sm">
+            <%= link_to 'Show', transaction, class: 'btn btn-outline-secondary' %>
+            <%= link_to 'Edit', edit_transaction_path(transaction), class: 'btn btn-outline-secondary' %>
+            <%= link_to 'Destroy', transaction, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-outline-danger' %>
+          </div>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Transaction', new_transaction_path %>

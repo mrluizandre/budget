@@ -17,7 +17,7 @@
   <tbody>
     <% @transactions.each do |transaction| %>
       <tr>
-        <td><%= transaction.date %></td>
+        <td><%= transaction.date.strftime("%d/%m/%Y") %></td>
         <td><%= number_to_currency transaction.amount %></td>
         <td><%= number_to_currency transaction.inflow %></td>
         <td><%= number_to_currency transaction.outflow %></td>
@@ -34,4 +34,4 @@
 
 <br>
 
-<%= link_to 'New Transaction', new_transaction_path %>
+<%= link_to 'New Transaction', new_transaction_path, class: 'btn btn-outline-primary' %>
