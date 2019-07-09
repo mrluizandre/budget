@@ -1,38 +1,67 @@
-<table class="table table-bordered table-sm">
-  <thead>
-    <tr>
-      <th>Category</th>
-      <th>Budgeted</th>
-      <th>Activity</th>
-      <th>Available</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% Category.order(name: :asc).each do |cat| %>
-      <tr>
-        <td><%= cat.name %></td>
-        <td>
-          <!-- <%= number_to_currency cat.budgeted %> -->
-          <%= form_tag(budget_category_path(cat), html: { class: 'form-inline' }) do %>
-              <%= number_field_tag :budgeted, cat.budgeted, step: 0.01 %>
-                    
-              <%= submit_tag 'Save', class: 'btn btn-outline-secondary btn-sm' %>
+<div class="row">
+  <div class="col-12 col-sm-9 scrollable-y">
+    <div class="table-responsive">
+      <table class="table table-bordered table-sm table-notbreakline table-budget">
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th>Budgeted</th>
+            <th class="d-none d-sm-block">Activity</th>
+            <th>Available</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @categories.each do |cat| %>
+            <tr onclick="show_category_sidebar(<%= cat.id %>)">
+              <td><%= cat.name %></td>
+              <td class="text-right">
+                <!-- <%= number_to_currency cat.budgeted %> -->
+                <%= form_tag(budget_category_path(cat), class: 'form-inline') do %>
+                    <%= number_field_tag :budgeted, cat.budgeted, step: 0.01 %>
+                <% end %>
+              </td>
+              <td class="d-none d-sm-block"><%= number_to_currency cat.activity %></td>
+              <td class="text-right">
+                <span class="badge badge-pill badge-lg <%= badge_color_category cat %>">
+                  <%= number_to_currency cat.balance %>
+                </span>
+                <!--
+                <%= form_tag(budget_category_path(cat), html: { class: 'form-inline' }) do %>
+                    <%= number_field_tag :balance, cat.balance, step: 0.01 %>
+                          
+                    <%= submit_tag 'Save', class: 'btn btn-outline-secondary btn-sm' %>
+                <% end %>
+              -->
+              </td>
+            </tr>
           <% end %>
-        </td>
-        <td><%= number_to_currency cat.activity %></td>
-        <td class="text-right">
-          <span class="badge badge-pill badge-lg <%= badge_color cat.balance %>">
-            <%= number_to_currency cat.balance %>
-          </span>
-          <!--
-          <%= form_tag(budget_category_path(cat), html: { class: 'form-inline' }) do %>
-              <%= number_field_tag :balance, cat.balance, step: 0.01 %>
-                    
-              <%= submit_tag 'Save', class: 'btn btn-outline-secondary btn-sm' %>
-          <% end %>
-        -->
-        </td>
-      </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="col-12 col-sm-3 scrollable-y">
+    <% @categories.each do |cat| %>
+      <div class="table_scheduled_transactions_cat_<%= cat.id %>">
+        <% if cat.scheduled_transactions.any? %>  
+          <h3><%= cat.name%> </h3>
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <td>Amount</td>
+                <td>Date</td>
+              </tr>
+            </thead>
+            <tbody>
+              <% cat.scheduled_transactions.each do |st| %>
+              <tr>
+                <td><%= number_to_currency st.amount %></td>
+                <td><%= st.date.strftime("%d/%m/%Y") %></td>
+              </tr>
+              <% end %>
+            </tbody>
+          </table>
+        <% end %>
+      </div>
     <% end %>
-  </tbody>
-</table>
+  </div>
+</div>

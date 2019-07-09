@@ -28,7 +28,7 @@ class ScheduledTransactionsController < ApplicationController
 
     respond_to do |format|
       if @scheduled_transaction.save
-        format.html { redirect_to @scheduled_transaction, notice: 'Scheduled transaction was successfully created.' }
+        format.html { redirect_to transactions_account_path(@scheduled_transaction.account), notice: 'Scheduled transaction was successfully created.' }
         format.json { render :show, status: :created, location: @scheduled_transaction }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class ScheduledTransactionsController < ApplicationController
   def update
     respond_to do |format|
       if @scheduled_transaction.update(scheduled_transaction_params)
-        format.html { redirect_to @scheduled_transaction, notice: 'Scheduled transaction was successfully updated.' }
+        format.html { redirect_to transactions_account_path(@scheduled_transaction.account), notice: 'Scheduled transaction was successfully updated.' }
         format.json { render :show, status: :ok, location: @scheduled_transaction }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class ScheduledTransactionsController < ApplicationController
   def destroy
     @scheduled_transaction.destroy
     respond_to do |format|
-      format.html { redirect_to scheduled_transactions_url, notice: 'Scheduled transaction was successfully destroyed.' }
+      format.html { redirect_to transactions_account_path(@scheduled_transaction.account), notice: 'Scheduled transaction was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

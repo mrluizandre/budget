@@ -2,6 +2,9 @@
 	font-family: 'Lato', sans-serif;
 }
 
+h1, h2, h3, h4, h5, h6 {
+	font-weight: 300;
+}
 .badge {
 	font-size: 1rem;
 	font-weight: normal;
@@ -34,6 +37,7 @@
 	border-radius: .4rem;
 	font-size: 2rem;
 	font-weight: 300;
+	min-width: 350px;
 
 
 	.description{
@@ -42,6 +46,65 @@
 	}
 }
 
+.success{
+	color: #143D0B;
+	background-color: #C4ECBB;
+}
+
+.warning{
+	color: #2A1704;
+	background-color: #F5DD80;
+}
+
+.danger{
+	color: #300B03;
+	background-color: #FCAA9C;
+}
+
+.secondary{
+	// color: #88979d;
+	color: #6e7c81;
+	background-color: #e9eced;
+}
+
+.table-notbreakline {
+	white-space: nowrap;
+}
+
+.table-budget{
+	input {
+		max-width: 120px;
+		text-align: center;
+	}
+}
+
+
+.scrollable-y{
+	height: calc(100vh - 106px);
+	overflow-y: scroll;
+}
 // .sidebar{
 // 	color: #ffffff;
 // }
+
+
+/* Extra small devices (phones, up to 480px) */
+@media screen and (max-width: 767px) {
+	html {
+		font-size: 13.75px;
+	}
+	.table-budget{
+		input {
+			max-width:60px
+		}
+	}
+}
+/* Small devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 991px) {
+}
+/* tablets/desktops and up ----------- */
+@media (min-width: 992px) and (max-width: 1199px) {
+}
+/* large desktops and up ----------- */
+@media screen and (min-width: 1200px) {
+}

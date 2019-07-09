@@ -1,7 +1,7 @@
 <h1><%= @account.name %>  Transactions</h1>
 
-<%= link_to 'New Transaction', new_transaction_path, class: 'btn btn-outline-primary' %>
-<br><br>
+<h2>Transactions</h2>
+<%= link_to 'New Transaction', new_transaction_path(account_id: @account), class: 'btn btn-outline-primary' %>
 <table class="table table-bordered table-sm">
   <thead>
     <tr>
@@ -27,6 +27,39 @@
             <%= link_to 'Show', transaction, class: 'btn btn-outline-secondary' %>
             <%= link_to 'Edit', edit_transaction_path(transaction), class: 'btn btn-outline-secondary' %>
             <%= link_to 'Destroy', transaction, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-outline-danger' %>
+          </div>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<h2>Scheduled Transactions</h2>
+<%= link_to 'New Scheduled Transaction', new_scheduled_transaction_path(account_id: @account), class: 'btn btn-outline-primary' %>
+<table class="table table-bordered table-sm">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Amount</th>
+      <th>Account</th>
+      <th>Payee</th>
+      <th>Category</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @scheduled_transactions.each do |scheduled_transaction| %>
+      <tr>
+        <td><%= scheduled_transaction.date.strftime("%d/%m/%Y") %></td>
+        <td><%= number_to_currency scheduled_transaction.amount %></td>
+        <td><%= scheduled_transaction.account.name %></td>
+        <td><%= scheduled_transaction.payee.name %></td>
+        <td><%= scheduled_transaction.category.name %></td>
+        <td>
+          <div class="btn-group btn-group-sm">
+            <%= link_to 'Show', scheduled_transaction, class: 'btn btn-outline-secondary' %>
+            <%= link_to 'Edit', edit_scheduled_transaction_path(scheduled_transaction), class: 'btn btn-outline-secondary' %>
+            <%= link_to 'Destroy', scheduled_transaction, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-outline-danger' %>
           </div>
         </td>
       </tr>

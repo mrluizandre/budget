@@ -3,6 +3,14 @@ class ScheduledTransaction < ApplicationRecord
   belongs_to :payee
   belongs_to :category
 
+  def amount
+    if self.inflow.present?
+      return self.inflow
+      elsif self.outflow.present?
+      return -self.outflow
+    end
+  end
+  
   def self.create_today_transactions
   	ScheduledTransaction.where(date: Date.today, done: false).each do |scheduled_transaction|
   		Transaction.create(

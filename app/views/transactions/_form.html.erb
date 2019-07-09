@@ -12,12 +12,12 @@
             wrapper_html: { class: 'col-12 col-sm-2'}%>
       <%= f.input :inflow, wrapper_html: { class: 'col-12 col-sm-2'} %>
       <%= f.input :outflow, wrapper_html: { class: 'col-12 col-sm-2'} %>
-      <%= f.association :payee, wrapper_html: { class: 'col-12 col-sm-2'} %>
-      <%= f.association :category, wrapper_html: { class: 'col-12 col-sm-2'} %>
+      <%= f.association :payee, collection: Payee.order(name: :asc), wrapper_html: { class: 'col-12 col-sm-2'} %>
+      <%= f.association :category, collection: Category.order(name: :asc), wrapper_html: { class: 'col-12 col-sm-2'} %>
     </div>
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit %>
+    <%= f.button :submit, class: 'btn btn-outline-primary' %>
   </div>
 <% end %>

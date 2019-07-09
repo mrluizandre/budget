@@ -9,6 +9,7 @@ class AccountsController < ApplicationController
 
   def transactions
     @transactions = @account.transactions
+    @scheduled_transactions = @account.scheduled_transactions
   end
 
   # GET /accounts/1
