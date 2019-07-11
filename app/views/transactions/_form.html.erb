@@ -5,7 +5,7 @@
 
   <div class="form-inputs">
     <div class="row">
-      <%= f.association :account, selected: params[:account_id], wrapper_html: { class: 'col-12 col-sm-2'} %>
+      <%= f.association :account, selected: @transaction.persisted? ? @transaction.account_id : params[:account_id], wrapper_html: { class: 'col-12 col-sm-2'} %>
       <%= f.input :date,
             as: :string,
             input_html: { class: 'datepicker', value: f.object.date.present? ? f.object.date.strftime("%d/%m/%Y") : Date.today.strftime("%d/%m/%Y") },

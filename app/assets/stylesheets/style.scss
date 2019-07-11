@@ -74,8 +74,16 @@ h1, h2, h3, h4, h5, h6 {
 .table-budget{
 	input {
 		max-width: 120px;
-		text-align: center;
+		text-align: right;
+		// padding-right: 1rem;
+		// border-radius: .3rem;
+		// padding-left: .15rem;
+		// padding-right: .15rem;
+		// border: 1px solid transparent;
 	}
+	// input:focus{
+	// 	border:1px solid #ccc;
+	// }
 }
 
 

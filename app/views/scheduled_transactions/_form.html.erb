@@ -4,15 +4,15 @@
 
   <div class="form-inputs">
     <div class="row">
-      <%= f.association :account, selected: params[:account_id], wrapper_html: { class: 'col-12 col-sm-2'} %>
+      <%= f.association :account, selected: @scheduled_transaction.persisted? ? @scheduled_transaction.account_id : params[:account_id], wrapper_html: { class: 'col-12 col-sm-2'} %>
       <%= f.input :date,
             as: :string,
             input_html: { class: 'datepicker', value: f.object.date.present? ? f.object.date.strftime("%d/%m/%Y") : Date.today.strftime("%d/%m/%Y") },
             wrapper_html: { class: 'col-12 col-sm-2'}%>
       <%= f.input :inflow, wrapper_html: { class: 'col-12 col-sm-2'} %>
       <%= f.input :outflow, wrapper_html: { class: 'col-12 col-sm-2'} %>
-      <%= f.association :payee, wrapper_html: { class: 'col-12 col-sm-2'} %>
-      <%= f.association :category, wrapper_html: { class: 'col-12 col-sm-2'} %>
+      <%= f.association :payee, collection: Payee.order(name: :asc), wrapper_html: { class: 'col-12 col-sm-2'} %>
+      <%= f.association :category, collection: Category.order(name: :asc), wrapper_html: { class: 'col-12 col-sm-2'} %>
     </div>
   </div>
 
