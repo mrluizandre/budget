@@ -10,18 +10,25 @@ class ScheduledTransaction < ApplicationRecord
       return -self.outflow
     end
   end
+
+  def create_transaction(due_date: self.date)
+    ActiveRecord::Base.transaction do
+      Transaction.create!(
+          date: due_date,
+          account: self.account,
+          payee: self.payee,
+          category: self.category,
+          inflow: self.inflow,
+          outflow: self.outflow,
+          note: self.note
+          )
+      self.update!(done: true)
+    end
+  end
   
   def self.create_today_transactions
   	ScheduledTransaction.where(date: Date.today, done: false).each do |scheduled_transaction|
-  		Transaction.create(
-				date: scheduled_transaction.date,
-				account: scheduled_transaction.account,
-				payee: scheduled_transaction.payee,
-				category: scheduled_transaction.category,
-				inflow: scheduled_transaction.inflow,
-				outflow: scheduled_transaction.outflow,
-  			)
-  		scheduled_transaction.update(done: true)
+  		scheduled_transaction.create_transaction
   	end  	
   end
 end

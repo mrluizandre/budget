@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_08_194932) do
+ActiveRecord::Schema.define(version: 2019_07_17_123035) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,6 +32,8 @@ ActiveRecord::Schema.define(version: 2019_07_08_194932) do
     t.datetime "updated_at", null: false
     t.boolean "to_be_budgeted", default: false
     t.bigint "linked_credit_card_account_id"
+    t.bigint "group_id"
+    t.index ["group_id"], name: "index_categories_on_group_id"
     t.index ["linked_credit_card_account_id"], name: "index_categories_on_linked_credit_card_account_id"
   end
 
@@ -77,6 +79,7 @@ ActiveRecord::Schema.define(version: 2019_07_08_194932) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "done", default: false
+    t.string "note"
     t.index ["account_id"], name: "index_scheduled_transactions_on_account_id"
     t.index ["category_id"], name: "index_scheduled_transactions_on_category_id"
     t.index ["payee_id"], name: "index_scheduled_transactions_on_payee_id"
@@ -93,6 +96,7 @@ ActiveRecord::Schema.define(version: 2019_07_08_194932) do
     t.datetime "updated_at", null: false
     t.decimal "inflow", precision: 8, scale: 2
     t.decimal "outflow", precision: 8, scale: 2
+    t.string "note"
     t.index ["account_id"], name: "index_transactions_on_account_id"
     t.index ["category_id"], name: "index_transactions_on_category_id"
     t.index ["payee_id"], name: "index_transactions_on_payee_id"
@@ -106,11 +110,13 @@ ActiveRecord::Schema.define(version: 2019_07_08_194932) do
     t.decimal "amount", precision: 8, scale: 2
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "note"
     t.index ["account_from_id"], name: "index_transfers_on_account_from_id"
     t.index ["account_to_id"], name: "index_transfers_on_account_to_id"
   end
 
   add_foreign_key "categories", "accounts", column: "linked_credit_card_account_id"
+  add_foreign_key "categories", "groups"
   add_foreign_key "category_transactions", "categories", column: "from_id"
   add_foreign_key "category_transactions", "categories", column: "to_id"
   add_foreign_key "scheduled_transactions", "accounts"

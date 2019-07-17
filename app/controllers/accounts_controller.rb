@@ -8,8 +8,22 @@ class AccountsController < ApplicationController
   end
 
   def transactions
-    @transactions = @account.transactions
-    @scheduled_transactions = @account.scheduled_transactions
+    transactions = @account.transactions
+    transfers_to = @account.transfers_to
+    transfers_from = @account.transfers_from.map{|t| t.amount = -t.amount; t}
+
+    @transactions = transactions + transfers_to + transfers_from
+
+    @transactions.sort_by! do |t| 
+      if t.is_a? Transfer
+        t.created_at
+      elsif t.is_a? Transaction
+        t.date
+      end
+    end.reverse!
+
+    # @transactions = @account.transactions
+    @scheduled_transactions = @account.scheduled_transactions.where(done: false)
   end
 
   # GET /accounts/1

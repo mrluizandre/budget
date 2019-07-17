@@ -1,5 +1,10 @@
 class ScheduledTransactionsController < ApplicationController
-  before_action :set_scheduled_transaction, only: [:show, :edit, :update, :destroy]
+  before_action :set_scheduled_transaction, only: [:show, :edit, :update, :destroy, :enter_now]
+
+  def enter_now
+    @scheduled_transaction.create_transaction(due_date: Date.today)
+    redirect_to transactions_account_path(@scheduled_transaction.account), notice: 'Transaction was successfully created.' 
+  end
 
   # GET /scheduled_transactions
   # GET /scheduled_transactions.json
@@ -69,6 +74,6 @@ class ScheduledTransactionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def scheduled_transaction_params
-      params.require(:scheduled_transaction).permit(:date, :account_id, :payee_id, :category_id, :inflow, :outflow)
+      params.require(:scheduled_transaction).permit(:date, :account_id, :payee_id, :category_id, :inflow, :outflow, :note)
     end
 end

@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
-  resources :scheduled_transactions
+
+  resources :scheduled_transactions do
+    member do
+      get :enter_now
+    end
+  end
+
   get 'pages/index'
   resources :transfers
   resources :transactions

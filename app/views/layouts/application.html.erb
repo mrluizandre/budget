@@ -75,36 +75,45 @@
       <!-- <h1><%= link_to @current_month.month.strftime("%B/%Y"), root_path %></h1>
       <h2>To be budgeted: <%= number_to_currency @current_month.to_be_budgeted %></h2> -->
       <div class="row">
-        <div class="col-sm-3 sidebar d-none d-sm-block scrollable-y">
+        <div class="col-sm-3 sidebar d-none d-sm-block scrollable-y col-accounts">
           <h3>Accounts</h3>
-          <table class="table table-bordered table-sm table-accounts">
+          <table class="table table-sm table-accounts">
             <thead>
               <tr>
                 <th>Account</th>
-                <th>Balance</th>
+                <th class="text-right">Balance</th>
               </tr>
             </thead>
             <tbody>
                 <tr>
                   <td>Assets</td>
-                  <td class="text-right"><%= number_to_currency Account.all.inject(0.0){|sum,x| x.balance >= 0 ? sum + x.balance : sum }%></td>
+                  <td class="text-right">
+                    <span class="badge badge-pill badge-lg">
+                      <%= number_to_currency Account.all.inject(0.0){|sum,x| x.balance >= 0 ? sum + x.balance : sum }%></td>
+                    </span>
                 </tr>
                 <tr>
                   <td>Debts</td>
-                  <td class="text-right"><%= number_to_currency Account.all.inject(0.0){|sum,x| x.balance < 0 ? sum + x.balance : sum }%></td>
+                  <td class="text-right">
+                    <span class="badge badge-pill badge-lg">
+                      <%= number_to_currency Account.all.inject(0.0){|sum,x| x.balance < 0 ? sum + x.balance : sum }%></td>
+                    </span>
                 </tr>
                 <tr>
                   <td>All accounts / Net Worth</td>
-                  <td class="text-right"><%= number_to_currency Account.all.inject(0.0){|sum,x| sum + x.balance }%></td>
+                  <td class="text-right">
+                    <span class="badge badge-pill badge-lg">
+                      <%= number_to_currency Account.all.inject(0.0){|sum,x| sum + x.balance }%></td>
+                    </span>
                 </tr>
               <% Account.order(name: :asc).each do |acc| %>
                 <tr>
                     <td>
                       <%= link_to acc.name, transactions_account_path(acc) %>
-                      <%= link_to '+', new_transaction_path(account_id: acc), class: 'btn btn-outline-secondary btn-sm float-right' %>
+                      <%= link_to '+', new_transaction_path(account_id: acc), class: 'btn btn-outline-light btn-sm float-right' %>
                     </td>
                     <td class="text-right">
-                      <span class="badge badge-pill badge-lg <%= badge_color acc.balance %>">
+                      <span class="badge badge-pill badge-lg <%= badge_color_account acc.balance %>">
                         <%= number_to_currency acc.balance %>
                       </span>
                     </td>
@@ -114,7 +123,7 @@
           </table>      
         </div>
 
-        <div class="col-12 col-sm-9">
+        <div class="col">
           <% if alert.present? %>
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
               <%= alert %>

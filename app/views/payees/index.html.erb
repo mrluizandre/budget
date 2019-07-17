@@ -10,7 +10,7 @@
   </thead>
 
   <tbody>
-    <% @payees.each do |payee| %>
+    <% @payees.order(name: :asc).each do |payee| %>
       <tr>
         <td><%= payee.name %></td>
         <td><%= link_to 'Show', payee %></td>

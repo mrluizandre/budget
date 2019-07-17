@@ -13,7 +13,7 @@ class Transaction < ApplicationRecord
   def amount
     if self.inflow.present?
       return self.inflow
-      elsif self.outflow.present?
+    elsif self.outflow.present?
       return -self.outflow
     end
   end

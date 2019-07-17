@@ -25,6 +25,11 @@ h1, h2, h3, h4, h5, h6 {
 	background-color: #FCAA9C;
 }
 
+.badge-danger-account{
+	color: rgb(211, 60, 45);
+	background-color: #fff;
+}
+
 .badge-secondary{
 	color: #88979d;
 	background-color: #e9eced;
@@ -35,9 +40,9 @@ h1, h2, h3, h4, h5, h6 {
 	background-color: #C4ECBB;
 	padding: .3rem .75rem;
 	border-radius: .4rem;
-	font-size: 2rem;
+	font-size: 1.8rem;
 	font-weight: 300;
-	min-width: 350px;
+	min-width: 450px;
 
 
 	.description{
@@ -88,15 +93,47 @@ h1, h2, h3, h4, h5, h6 {
 
 
 .scrollable-y{
-	height: calc(100vh - 106px);
+	height: calc(100vh - 90px);
 	overflow-y: scroll;
 }
 // .sidebar{
 // 	color: #ffffff;
 // }
 
+.col-accounts{
+	font-size: .9rem;
+	background-color: #104175;
+	color: #eeeeee;
 
-/* Extra small devices (phones, up to 480px) */
+	.badge {
+		font-size: .9rem;
+	}
+
+	table{
+		color: #eeeeee;
+
+		thead, tbody, tr, td, th {
+			border: transparent;
+		}
+	}
+
+	a {
+		color: #eeeeee;
+	}
+}
+
+.tr-group{
+	background-color: #e5f1ff;
+	color: #104175;
+
+	.data{
+		font-weight: normal;
+	}
+}
+
+/* Extra small devices (phone
+
+s, up to 480px) */
 @media screen and (max-width: 767px) {
 	html {
 		font-size: 13.75px;
@@ -115,4 +152,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 /* large desktops and up ----------- */
 @media screen and (min-width: 1200px) {
+	.col-accounts{
+		width: 20%;
+		flex: 0 0 20%;
+	}
 }

@@ -9,10 +9,12 @@ class Transfer < ApplicationRecord
 		def change_accounts_balance
       self.account_from.change_balance -self.amount
       self.account_to.change_balance self.amount
+			self.account_to.category.change_balance -self.amount if self.account_to.credit_card?
 	  end
 
     def undo_changes
       self.account_from.change_balance self.amount
       self.account_to.change_balance -self.amount
+      self.account_to.category.change_balance self.amount if self.account_to.credit_card?
     end
 end
