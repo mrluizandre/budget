@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_17_123035) do
+ActiveRecord::Schema.define(version: 2019_07_18_181501) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -90,8 +90,6 @@ ActiveRecord::Schema.define(version: 2019_07_17_123035) do
     t.bigint "account_id"
     t.bigint "payee_id"
     t.bigint "category_id"
-    t.bigint "transfer_account_id"
-    t.bigint "transfer_transaction_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.decimal "inflow", precision: 8, scale: 2
@@ -100,8 +98,6 @@ ActiveRecord::Schema.define(version: 2019_07_17_123035) do
     t.index ["account_id"], name: "index_transactions_on_account_id"
     t.index ["category_id"], name: "index_transactions_on_category_id"
     t.index ["payee_id"], name: "index_transactions_on_payee_id"
-    t.index ["transfer_account_id"], name: "index_transactions_on_transfer_account_id"
-    t.index ["transfer_transaction_id"], name: "index_transactions_on_transfer_transaction_id"
   end
 
   create_table "transfers", force: :cascade do |t|
@@ -123,10 +119,8 @@ ActiveRecord::Schema.define(version: 2019_07_17_123035) do
   add_foreign_key "scheduled_transactions", "categories"
   add_foreign_key "scheduled_transactions", "payees"
   add_foreign_key "transactions", "accounts"
-  add_foreign_key "transactions", "accounts", column: "transfer_account_id"
   add_foreign_key "transactions", "categories"
   add_foreign_key "transactions", "payees"
-  add_foreign_key "transactions", "transactions", column: "transfer_transaction_id"
   add_foreign_key "transfers", "accounts", column: "account_from_id"
   add_foreign_key "transfers", "accounts", column: "account_to_id"
 end

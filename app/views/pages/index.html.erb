@@ -51,6 +51,7 @@
                 <tr>
                   <td>Date</td>
                   <td>Amount</td>
+                  <td>Account</td>
                   <td>Payee</td>
                 </tr>
               </thead>
@@ -65,6 +66,7 @@
                 <tr>
                   <td><%= st.date.strftime("%d/%m/%Y") %></td>
                   <td><%= st.payee.name %></td>
+                  <td><%= st.account.name %></td>
                   <td><%= number_to_currency st.amount %></td>
                 </tr>
                 <% end %>

@@ -45,8 +45,8 @@
             <td><%= transaction.category.name %></td>
           <% elsif transaction.is_a? Transfer %>
             <td><%= transaction.created_at.strftime("%d/%m/%Y") %></td>
-            <td><%= transaction.account_to.name %></td>
-            <td>Transfer</td>
+            <td><%= transaction.account_to == @account ? transaction.account_from.name : transaction.account_to.name  %></td>
+            <td>🔁 Transfer</td>
           <% end %>
           <td><%= transaction.note %></td>
           <td class="text-right <%= value_color transaction.amount %>"><%= number_to_currency transaction.amount %></td>
