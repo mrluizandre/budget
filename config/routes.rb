@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  devise_for :users
   resources :scheduled_transactions do
     member do
       get :enter_now

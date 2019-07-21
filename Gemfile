@@ -75,3 +75,4 @@ gem 'jquery-ui-rails', '~> 6.0', '>= 6.0.1'
 gem 'colorize', '~> 0.8.1'
 
 gem 'whenever', '~> 1.0', require: false
+gem 'devise', '~> 4.6', '>= 4.6.2'

@@ -2,6 +2,8 @@ class Category < ApplicationRecord
 	belongs_to :linked_credit_card_account, class_name: 'Account', optional: true
 	belongs_to :group
 	has_many :scheduled_transactions
+	has_many :stats
+
 
 	validates_uniqueness_of :to_be_budgeted, if: :to_be_budgeted
 	
@@ -21,5 +23,9 @@ class Category < ApplicationRecord
 		  to.update!(balance: to.balance + amount, budgeted: to.budgeted + amount)
 		  CategoryTransaction.create!(from: from, to: to, amount: amount)
 		end
+	end
+
+	def create_stat(month = Date.today.month, year = Date.today.year)
+		
 	end
 end
