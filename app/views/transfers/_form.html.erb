@@ -7,7 +7,7 @@
     <div class="row">
       <%= f.association :account_from, collection: Account.order(name: :asc), wrapper_html: { class: 'col-12 col-sm-3'} %>
       <%= f.association :account_to, collection: Account.order(name: :asc), selected: @transfer.persisted? ? @transfer.account_to_id : params[:account_to_id], wrapper_html: { class: 'col-12 col-sm-3'} %>
-      <%= f.input :amount, as: :string, input_html: {value: @transfer.persisted? ? @transfer.value : params[:value]}, wrapper_html: { class: 'col-12 col-sm-3'} %>
+      <%= f.input :amount, as: :string, input_html: {value: @transfer.persisted? ? @transfer.amount : params[:value]}, wrapper_html: { class: 'col-12 col-sm-3'} %>
       <%= f.input :note, wrapper_html: { class: 'col-12 col-sm-3'} %>
     </div>
   </div>

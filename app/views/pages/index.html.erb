@@ -20,7 +20,7 @@
             </tr>
             <% cats.each do |cat| %>
               <tr onclick="show_category_sidebar(<%= cat.id %>)">
-                <td><%= cat.name %></td>
+                <td><%= link_to cat.name, cat %></td>
                 <td class="text-right">
                   <!-- <%= number_to_currency cat.budgeted %> -->
                   <%= form_tag(budget_category_path(cat), class: 'form-inline float-right') do %>

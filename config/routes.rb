@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
 
+  resources :budgets do
+    member do
+      get :set_current
+    end
+  end
   devise_for :users
   resources :scheduled_transactions do
     member do
