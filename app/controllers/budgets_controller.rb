@@ -1,6 +1,6 @@
 class BudgetsController < ApplicationController
   before_action :set_budget, only: [:show, :edit, :update, :destroy]
-  skip_before_action :current_budget, only: [:index, :set_current]
+  skip_before_action :check_if_budget_set, only: [:index, :set_current]
 
   def set_current
     budget = Budget.find_by(id: params[:id])

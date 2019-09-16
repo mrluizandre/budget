@@ -1,5 +1,7 @@
 class Budget < ApplicationRecord
   belongs_to :user
+  has_many :accounts
+  has_many :payees
   has_many :groups
   has_many :categories, :through => :groups
 

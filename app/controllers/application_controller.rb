@@ -2,12 +2,12 @@ class ApplicationController < ActionController::Base
 	before_action :current_month
 	before_action :set_to_be_budgeted
 
-	before_action :current_budget
+	before_action :check_if_budget_set
+
+	helper_method :current_budget
 
 	def current_budget
-		redirect_to budgets_path, notice: 'Select the budget' if not session[:budget_id].present?
-
-		puts "#{session[:budget_id]}".on_green
+		Budget.find(session[:budget_id])
 	end
 
 	def current_month
@@ -17,4 +17,9 @@ class ApplicationController < ActionController::Base
 	def set_to_be_budgeted
 		@to_be_budgeted = Category.find_by(to_be_budgeted: true)
 	end
+
+	private
+		def check_if_budget_set
+			redirect_to budgets_path, notice: 'Select the budget' and return if not session[:budget_id].present?
+		end
 end

@@ -4,7 +4,7 @@ class PayeesController < ApplicationController
   # GET /payees
   # GET /payees.json
   def index
-    @payees = Payee.all
+    @payees = current_budget.payees
   end
 
   # GET /payees/1
@@ -69,6 +69,6 @@ class PayeesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def payee_params
-      params.require(:payee).permit(:name)
+      params.require(:payee).permit(:name, :budget_id)
     end
 end

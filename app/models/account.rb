@@ -1,4 +1,5 @@
 class Account < ApplicationRecord
+	belongs_to :budget
 	has_many :transactions
 	has_many :transfers_to, :class_name => "Transfer", :foreign_key => "account_to_id"
 	has_many :transfers_from, :class_name => "Transfer", :foreign_key => "account_from_id"

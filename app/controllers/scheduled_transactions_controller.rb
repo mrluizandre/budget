@@ -9,7 +9,7 @@ class ScheduledTransactionsController < ApplicationController
   # GET /scheduled_transactions
   # GET /scheduled_transactions.json
   def index
-    @scheduled_transactions = ScheduledTransaction.all
+    @scheduled_transactions = ScheduledTransaction.where(done: false)
   end
 
   # GET /scheduled_transactions/1

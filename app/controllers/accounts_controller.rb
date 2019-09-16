@@ -4,7 +4,7 @@ class AccountsController < ApplicationController
   # GET /accounts
   # GET /accounts.json
   def index
-    @accounts = Account.all
+    @accounts = current_budget.accounts
   end
 
   def transactions

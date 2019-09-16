@@ -10,7 +10,7 @@ class CategoriesController < ApplicationController
   # GET /categories
   # GET /categories.json
   def index
-    @categories = Category.order(name: :asc)
+    @categories = current_budget.categories.order(name: :asc)
   end
 
   # GET /categories/1
