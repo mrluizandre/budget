@@ -44,7 +44,7 @@
     <% @categories.each do |group,cats| %>
       <% cats.each do |cat| %>
         <div class="table_scheduled_transactions_cat_<%= cat.id %>">
-          <% if cat.scheduled_transactions.where(done: false).any? %>  
+          <% if cat.scheduled_transactions.where(date: Time.now.beginning_of_month..Time.now.end_of_month, done: false).any? %>  
             <h3><%= cat.name%> </h3>
             <table class="table table-bordered table-sm">
               <thead>
@@ -58,11 +58,11 @@
               <tfoot>
                 <tr>
                   <td colspan="2">Total</td>
-                  <td><%= number_to_currency cat.scheduled_transactions.where(done: false).inject(0.0){|sum,st| sum + st.amount }%></td>
+                  <td><%= number_to_currency cat.scheduled_transactions.where(date: Time.now.beginning_of_month..Time.now.end_of_month, done: false).inject(0.0){|sum,st| sum + st.amount }%></td>
                 </tr>
               </tfoot>
               <tbody>
-                <% cat.scheduled_transactions.where(done: false).each do |st| %>
+                <% cat.scheduled_transactions.where(date: Time.now.beginning_of_month..Time.now.end_of_month, done: false).each do |st| %>
                 <tr>
                   <td><%= st.date.strftime("%d/%m/%Y") %></td>
                   <td><%= st.payee.name %></td>

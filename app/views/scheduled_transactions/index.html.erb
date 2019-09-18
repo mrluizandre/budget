@@ -1,6 +1,6 @@
 <h1>Scheduled Transactions</h1>
-
-<table class="table table-bordered">
+<p><strong>Total:</strong> <%= number_to_currency @scheduled_transactions_not_grouped.inject(0.0){|sum,st| sum + st.amount } %></p>
+<table class="table table-bordered table-sm">
   <thead>
     <tr>
       <th>Date</th>
@@ -11,29 +11,28 @@
       <th></th>
     </tr>
   </thead>
-  <tfoot>
-    <tr class="text-right">
-      <th colspan="4">Total</th>
-      <th> <%= number_to_currency @scheduled_transactions.inject(0.0){|sum,st| sum + st.amount } %> </th>
-      <th></th>
-    </tr>
-  </tfoot>
-
   <tbody>
-    <% @scheduled_transactions.each do |scheduled_transaction| %>
-      <tr>
-        <td><%= scheduled_transaction.date.strftime("%d/%m/%Y") %></td>
-        <td><%= scheduled_transaction.payee.name %></td>
-        <td><%= scheduled_transaction.category.name %></td>
-        <td><%= scheduled_transaction.note %></td>
-        <td class="text-right"><%= number_to_currency scheduled_transaction.amount %></td>
-        <td>
-          <div class="btn-group btn-group-sm">
-            <%= link_to 'Enter now', enter_now_scheduled_transaction_path(scheduled_transaction), class: 'btn btn-outline-success'%>
-            <%= link_to 'Edit', edit_scheduled_transaction_path(scheduled_transaction), class: 'btn btn-outline-secondary' %>
-            <%= link_to 'Destroy', scheduled_transaction, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-outline-secondary' %>
-          </div>
-        </td>
+   <% @scheduled_transactions.each do |month,scheduled_transactions| %>
+      <% scheduled_transactions.each do |scheduled_transaction|%>
+        <tr>
+          <td><%= scheduled_transaction.date.strftime("%d/%m/%Y") %></td>
+          <td><%= scheduled_transaction.payee.name %></td>
+          <td><%= scheduled_transaction.category.name %></td>
+          <td><%= scheduled_transaction.note %></td>
+          <td class="text-right"><%= number_to_currency scheduled_transaction.amount %></td>
+          <td>
+            <div class="btn-group btn-group-sm">
+              <%= link_to 'Enter now', enter_now_scheduled_transaction_path(scheduled_transaction), class: 'btn btn-outline-success'%>
+              <%= link_to 'Edit', edit_scheduled_transaction_path(scheduled_transaction), class: 'btn btn-outline-secondary' %>
+              <%= link_to 'Destroy', scheduled_transaction, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-outline-secondary' %>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+      <tr style="background-color: #f0f0f0; color: #888888">
+        <th colspan="4" class="text-center"><%= month %></th>
+        <th class="text-right"><%= number_to_currency scheduled_transactions.inject(0.0){|sum,st| sum + st.amount} %></th>
+        <th></th>
       </tr>
     <% end %>
   </tbody>

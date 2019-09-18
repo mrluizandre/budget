@@ -10,6 +10,10 @@ Rails.application.routes.draw do
     member do
       get :enter_now
     end
+    collection do
+      get :new_by_installments
+      post :create_by_installments
+    end
   end
 
   get 'pages/index'

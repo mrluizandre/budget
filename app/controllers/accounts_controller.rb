@@ -23,7 +23,7 @@ class AccountsController < ApplicationController
     end.reverse!
 
     # @transactions = @account.transactions
-    @scheduled_transactions = @account.scheduled_transactions.where(done: false)
+    @scheduled_transactions = @account.scheduled_transactions.where(done: false).order(date: :desc).group_by{|a| a.date.strftime("%B/%Y")}
   end
 
   # GET /accounts/1

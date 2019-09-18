@@ -9,7 +9,8 @@ class ScheduledTransactionsController < ApplicationController
   # GET /scheduled_transactions
   # GET /scheduled_transactions.json
   def index
-    @scheduled_transactions = ScheduledTransaction.where(done: false)
+    @scheduled_transactions = ScheduledTransaction.where(done: false).where(done: false).order(date: :asc).group_by{|a| a.date.strftime("%B/%Y")}
+    @scheduled_transactions_not_grouped = ScheduledTransaction.where(done: false).where(done: false)
   end
 
   # GET /scheduled_transactions/1
@@ -22,6 +23,22 @@ class ScheduledTransactionsController < ApplicationController
     @scheduled_transaction = ScheduledTransaction.new
   end
 
+  def new_by_installments
+  end
+  
+  def create_by_installments
+    ScheduledTransaction.create_by_installments(
+      n_installments: create_by_installments_params[:n_installments],
+      first_installment_date: create_by_installments_params[:first_installment_date],
+      account_id: create_by_installments_params[:account_id],
+      payee_id: create_by_installments_params[:payee_id],
+      category_id: create_by_installments_params[:category_id],
+      inflow: create_by_installments_params[:inflow],
+      outflow: create_by_installments_params[:outflow],
+      note: create_by_installments_params[:note])
+
+    redirect_to transactions_account_path(create_by_installments_params[:account_id])
+  end
   # GET /scheduled_transactions/1/edit
   def edit
   end
@@ -75,5 +92,18 @@ class ScheduledTransactionsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def scheduled_transaction_params
       params.require(:scheduled_transaction).permit(:date, :account_id, :payee_id, :category_id, :inflow, :outflow, :note)
+    end
+
+    def create_by_installments_params
+      params.permit(
+        :n_installments,
+        :starting_n_installment,
+        :first_installment_date,
+        :account_id,
+        :payee_id,
+        :category_id,
+        :inflow,
+        :outflow,
+        :note)
     end
 end

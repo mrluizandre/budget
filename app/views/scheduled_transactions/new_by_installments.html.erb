@@ -1,0 +1,65 @@
+<%= form_tag create_by_installments_scheduled_transactions_url do %>
+
+    <div class="form-inputs">
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <%= label_tag :account_id %>
+                    <%= select_tag :account_id,
+                        options_for_select(current_budget.accounts.order(name: :asc).map{|acc| [acc.name, acc.id]},params[:account_id]),
+                        class: 'form-control' %>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <%= label_tag :n_installments %>
+                    <%= number_field_tag :n_installments, '', class: 'form-control' %>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <%= label_tag :first_installment_date, '1st inst. date' %>
+                    <%= text_field_tag :first_installment_date, '', class: 'datepicker form-control' %>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <%= label_tag :payee_id %>
+                    <%= select_tag :payee_id,
+                        options_for_select(current_budget.payees.order(name: :asc).map{|payee| [payee.name, payee.id]}),
+                        class: 'form-control' %>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <%= label_tag :category_id %>
+                    <%= select_tag :category_id,
+                        options_for_select(current_budget.categories.order(name: :asc).map{|cat| [cat.name, cat.id]}),
+                        class: 'form-control' %>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <%= label_tag :note %>
+                    <%= text_field_tag :note, '', class: 'form-control' %>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <%= label_tag :inflow %>
+                    <%= text_field_tag :inflow, '', class: 'form-control' %>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <%= label_tag :outflow %>
+                    <%= text_field_tag :outflow, '', class: 'form-control' %>
+                </div>
+            </div>
+        </div>
+
+  <div class="form-actions">
+    <%= submit_tag 'Enviar' %>
+  </div>
+<% end %>
+
