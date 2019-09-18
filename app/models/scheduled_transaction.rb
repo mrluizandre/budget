@@ -15,6 +15,7 @@ class ScheduledTransaction < ApplicationRecord
   end
 
   def create_transaction(due_date: self.date)
+    # TUDO validação no back e no front
     ActiveRecord::Base.transaction do
       Transaction.create!(
           date: due_date,
