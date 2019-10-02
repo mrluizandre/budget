@@ -14,7 +14,7 @@
   <tbody>
     <% @budgets.each do |budget| %>
       <tr>
-        <td><%= budget.user %></td>
+        <td><%= budget.user.email %></td>
         <td><%= budget.name %></td>
         <td><%= budget.last_used_at %></td>
         <td>

@@ -4,17 +4,17 @@
 
 <p>
   <strong>Budgeted:</strong>
-  <%= @category.budgeted %>
+  <%= number_to_currency @category.budgeted %>
 </p>
 
 <p>
   <strong>Activity:</strong>
-  <%= @category.activity %>
+  <%= number_to_currency @category.activity %>
 </p>
 
 <p>
   <strong>Balance:</strong>
-  <%= @category.balance %>
+  <%= number_to_currency @category.balance %>
 </p>
 
 
@@ -58,9 +58,14 @@
 	        </tr>
 	    <% end %>
 	  </tbody>
+
+		<tfoot>
+			<tr>
+				<th class="text-right" colspan="4">Total:</th>
+				<th class="text-right"><%= number_to_currency transactions.inject(0.0){|sum,t| sum + t.amount}%></th>
+				<th></th>
+			</tr>
+		</tfoot>
 	</table>
 
 <% end %>
-
-<%= link_to 'Edit', edit_category_path(@category) %> |
-<%= link_to 'Back', categories_path %>

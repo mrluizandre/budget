@@ -7,7 +7,8 @@
                     <%= label_tag :account_id %>
                     <%= select_tag :account_id,
                         options_for_select(current_budget.accounts.order(name: :asc).map{|acc| [acc.name, acc.id]},params[:account_id]),
-                        class: 'form-control' %>
+                        class: 'form-control select2',
+                        include_blank: true %>
                 </div>
             </div>
             <div class="col">
@@ -27,7 +28,8 @@
                     <%= label_tag :payee_id %>
                     <%= select_tag :payee_id,
                         options_for_select(current_budget.payees.order(name: :asc).map{|payee| [payee.name, payee.id]}),
-                        class: 'form-control' %>
+                        class: 'form-control select2',
+                        include_blank: true %>
                 </div>
             </div>
             <div class="col">
@@ -35,7 +37,8 @@
                     <%= label_tag :category_id %>
                     <%= select_tag :category_id,
                         options_for_select(current_budget.categories.order(name: :asc).map{|cat| [cat.name, cat.id]}),
-                        class: 'form-control' %>
+                        class: 'form-control select2',
+                        include_blank: true %>
                 </div>
             </div>
             <div class="col">

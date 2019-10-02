@@ -1,6 +1,6 @@
 <h1>Categories</h1>
 <%= link_to 'New Category', new_category_path, class: 'btn btn-outline-primary' %>
-<table class="table table-bordered">
+<table class="table table-bordered table-sm">
   <thead>
     <tr>
       <th>Name</th>
@@ -16,9 +16,9 @@
     <% @categories.each do |category| %>
       <tr>
         <td><%= category.name %></td>
-        <td><%= category.budgeted %></td>
-        <td><%= category.activity %></td>
-        <td><%= category.balance %></td>
+        <td class="text-right"><%= number_to_currency category.budgeted %></td>
+        <td class="text-right"><%= number_to_currency category.activity %></td>
+        <td class="text-right"><%= number_to_currency category.balance %></td>
         <td><%= category.group.name if category.group.present?  %></td>
         <td>
           <div class="btn-group btn-group-sm">

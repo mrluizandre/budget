@@ -4,7 +4,10 @@
 
 h1, h2, h3, h4, h5, h6 {
 	font-weight: 300;
+	font-family: Raleway, sans-serif;
+	color: #104175
 }
+
 .badge {
 	font-size: 1rem;
 	font-weight: normal;
@@ -94,13 +97,16 @@ h1, h2, h3, h4, h5, h6 {
 
 .scrollable-y{
 	height: calc(100vh - 90px);
-	overflow-y: scroll;
+	overflow-y: auto;
 }
-// .sidebar{
-// 	color: #ffffff;
-// }
+.sidebar{
+	h1, h2, h3, h4, h5, h6 {
+		color: #ffffff;
+	}
+}
 
 .col-accounts{
+	padding-top: 1rem;
 	font-size: .9rem;
 	background-color: #104175;
 	color: #eeeeee;
@@ -139,9 +145,7 @@ table a {
 	}
 }
 
-/* Extra small devices (phone
-
-s, up to 480px) */
+/* Extra small devices (phones, up to 480px) */
 @media screen and (max-width: 767px) {
 	html {
 		font-size: 13.75px;
@@ -164,4 +168,38 @@ s, up to 480px) */
 		width: 20%;
 		flex: 0 0 20%;
 	}
+}
+
+
+.nav-item {
+	// text-transform: uppercase;
+}
+
+.nav-link{
+	margin-left: 1rem;
+	border-bottom: 2px solid transparent;	
+	&.active{
+		border-color: #ffffff;
+		color: #ffffff;
+	}
+}
+
+.action-bar{
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+}
+
+.col-content{
+	padding-top: 1rem;
+	padding-bottom: 1rem;
+}
+
+.select2-selection__rendered {
+    line-height: 33px !important;
+}
+.select2-container .select2-selection--single {
+    height: 37px !important;
+}
+.select2-selection__arrow {
+    height: 35px !important;
 }

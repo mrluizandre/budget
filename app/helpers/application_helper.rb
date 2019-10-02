@@ -44,4 +44,8 @@ module ApplicationHelper
 			'danger'
 		end
 	end
+
+	def navbar_active(controller)
+		controller == controller_name ? 'active' : ''
+	end
 end
