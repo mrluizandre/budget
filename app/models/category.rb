@@ -4,6 +4,7 @@ class Category < ApplicationRecord
 	has_many :scheduled_transactions
 	has_many :transactions
 	has_many :stats
+	has_many :goals
 
 	validates_uniqueness_of :to_be_budgeted, if: :to_be_budgeted
 	

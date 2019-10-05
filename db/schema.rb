@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_18_002127) do
+ActiveRecord::Schema.define(version: 2019_10_02_152613) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,6 +56,17 @@ ActiveRecord::Schema.define(version: 2019_09_18_002127) do
     t.datetime "updated_at", null: false
     t.index ["from_id"], name: "index_category_transactions_on_from_id"
     t.index ["to_id"], name: "index_category_transactions_on_to_id"
+  end
+
+  create_table "goals", force: :cascade do |t|
+    t.bigint "category_id"
+    t.integer "goal_type"
+    t.decimal "amount", precision: 14, scale: 2
+    t.date "date"
+    t.decimal "percentage", precision: 5, scale: 2
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_goals_on_category_id"
   end
 
   create_table "groups", force: :cascade do |t|
@@ -162,6 +173,7 @@ ActiveRecord::Schema.define(version: 2019_09_18_002127) do
   add_foreign_key "categories", "groups"
   add_foreign_key "category_transactions", "categories", column: "from_id"
   add_foreign_key "category_transactions", "categories", column: "to_id"
+  add_foreign_key "goals", "categories"
   add_foreign_key "groups", "budgets"
   add_foreign_key "payees", "budgets"
   add_foreign_key "scheduled_transactions", "accounts"

@@ -43,7 +43,8 @@
   <div class="col-12 col-sm-3 scrollable-y">
     <% @categories.each do |group,cats| %>
       <% cats.each do |cat| %>
-        <div class="table_scheduled_transactions_cat_<%= cat.id %>">
+        <div class="side_options_cat_<%= cat.id %>">
+
           <% if cat.scheduled_transactions.where(date: Time.now.beginning_of_month..Time.now.end_of_month, done: false).any? %>  
             <h3><%= cat.name%> </h3>
             <table class="table table-bordered table-sm">
@@ -72,6 +73,11 @@
                 <% end %>
               </tbody>
             </table>
+
+            <h4>Goals</h4>
+            <% cat.goals.each do |goal| %>
+              <p><%= goal.inspect %></p>
+            <% end %>
           <% end %>
         </div>
       <% end %>
