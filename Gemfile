@@ -52,6 +52,12 @@ group :development do
   gem 'awesome_print'
   gem "better_errors"
   gem "binding_of_caller"
+
+
+  gem "capistrano", require: false
+  gem "capistrano-rails", require: false
+  gem 'capistrano3-puma', require: false
+  gem 'capistrano-rvm', require: false
 end
 
 group :test do
@@ -75,4 +81,5 @@ gem 'jquery-ui-rails', '~> 6.0', '>= 6.0.1'
 gem 'colorize', '~> 0.8.1'
 
 gem 'whenever', '~> 1.0', require: false
+gem 'bcrypt', '3.1.12'
 gem 'devise', '~> 4.6', '>= 4.6.2'
