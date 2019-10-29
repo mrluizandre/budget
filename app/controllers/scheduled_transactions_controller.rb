@@ -1,4 +1,5 @@
 class ScheduledTransactionsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_scheduled_transaction, only: [:show, :edit, :update, :destroy, :enter_now]
 
   def enter_now

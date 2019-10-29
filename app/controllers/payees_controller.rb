@@ -1,4 +1,5 @@
 class PayeesController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_payee, only: [:show, :edit, :update, :destroy]
 
   # GET /payees

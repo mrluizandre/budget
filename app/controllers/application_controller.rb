@@ -20,6 +20,7 @@ class ApplicationController < ActionController::Base
 
 	private
 		def check_if_budget_set
+			return if not user_signed_in?
 			redirect_to budgets_path, notice: 'Select the budget' and return if not session[:budget_id].present?
 		end
 end
