@@ -18,66 +18,74 @@
   </head>
 
   <body>
-    <nav class="navbar navbar-expand-lg navbar-dark sticky-top" style="background-color: #225792;">
-    <%# <nav class="navbar navbar-expand-lg navbar-light sticky-top"> %>
-      <%= link_to 'Budget', root_path, class: 'navbar-brand' %>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <%= link_to 'Budgets', budgets_path, class: 'nav-link ' + navbar_active('budgets') %>
-          </li>
-          <li class="nav-item">
-            <%= link_to 'Accounts', accounts_path, class: 'nav-link ' + navbar_active('accounts') %>
-          </li>
-          <li class="nav-item">
-            <%= link_to 'Categories', categories_path, class: 'nav-link ' + navbar_active('categories') %>
-          </li>
-          <li class="nav-item">
-            <%= link_to 'Groups', groups_path, class: 'nav-link ' + navbar_active('groups') %>
-          </li>
-          <li class="nav-item">
-            <%= link_to 'Months', months_path, class: 'nav-link ' + navbar_active('months') %>
-          </li>
-          <li class="nav-item">
-            <%= link_to 'Payees', payees_path, class: 'nav-link ' + navbar_active('payees') %>
-          </li>
-          <li class="nav-item">
-            <%= link_to 'Scheduled transactions', scheduled_transactions_path, class: 'nav-link ' + navbar_active('scheduled_transactions') %>
-          </li>
-          <li class="nav-item">
-            <%= link_to 'Goals', goals_path, class: 'nav-link ' + navbar_active('goals') %>
-          </li>
-        </ul>
-      </div>
 
-      <div class="navbar-tobebudgeted <%= to_be_budgeted_color @to_be_budgeted.balance %>">
-        <div class="row">
-          <div class="col-5">
-            <div class="value">
-              <%= number_to_currency @to_be_budgeted.balance %>
+    <% if user_signed_in? %>
+      <nav class="navbar navbar-expand-lg navbar-dark sticky-top" style="background-color: #225792;">
+      <%# <nav class="navbar navbar-expand-lg navbar-light sticky-top"> %>
+        <%= link_to 'Budget', root_path, class: 'navbar-brand' %>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <%= link_to 'Budgets', budgets_path, class: 'nav-link ' + navbar_active('budgets') %>
+            </li>
+            <li class="nav-item">
+              <%= link_to 'Accounts', accounts_path, class: 'nav-link ' + navbar_active('accounts') %>
+            </li>
+            <li class="nav-item">
+              <%= link_to 'Categories', categories_path, class: 'nav-link ' + navbar_active('categories') %>
+            </li>
+            <li class="nav-item">
+              <%= link_to 'Groups', groups_path, class: 'nav-link ' + navbar_active('groups') %>
+            </li>
+            <li class="nav-item">
+              <%= link_to 'Months', months_path, class: 'nav-link ' + navbar_active('months') %>
+            </li>
+            <li class="nav-item">
+              <%= link_to 'Payees', payees_path, class: 'nav-link ' + navbar_active('payees') %>
+            </li>
+            <li class="nav-item">
+              <%= link_to 'Scheduled transactions', scheduled_transactions_path, class: 'nav-link ' + navbar_active('scheduled_transactions') %>
+            </li>
+            <li class="nav-item">
+              <%= link_to 'Goals', goals_path, class: 'nav-link ' + navbar_active('goals') %>
+            </li>
+            <% if user_signed_in? %>
+              <li class="nav-item">
+              <%= link_to('Logout', destroy_user_session_path, method: :delete, class: 'nav-link' ) %>        
+              </li>
+            <% end %>
+          </ul>
+        </div>
+
+        <div class="navbar-tobebudgeted <%= to_be_budgeted_color @to_be_budgeted.balance %>">
+          <div class="row">
+            <div class="col-5">
+              <div class="value">
+                <%= number_to_currency @to_be_budgeted.balance %>
+              </div>
+              <div class="description">
+                To be budgeted
+              </div>
             </div>
-            <div class="description">
-              To be budgeted
+            <div class="col-7">
+              <span class="description">
+                <ul>
+                  <li>
+                    Budgeted: <%= number_to_currency @to_be_budgeted.budgeted %>
+                  </li>
+                  <li>
+                    Activity: <%= number_to_currency @to_be_budgeted.activity %>
+                  </li>
+                </ul>
+              </span>
             </div>
-          </div>
-          <div class="col-7">
-            <span class="description">
-              <ul>
-                <li>
-                  Budgeted: <%= number_to_currency @to_be_budgeted.budgeted %>
-                </li>
-                <li>
-                  Activity: <%= number_to_currency @to_be_budgeted.activity %>
-                </li>
-              </ul>
-            </span>
           </div>
         </div>
-      </div>
-    </nav>
+      </nav>
+    <% end %>
     <div class="container-fluid">
       <div class="row">
         <% if session[:budget_id].present? %>

@@ -1,86 +1,88 @@
-<div class="row">
-  <div class="col-12 col-sm-9 scrollable-y">
-    <div class="table-responsive">
-      <table class="table table-sm table-notbreakline table-budget">
-        <thead>
-          <tr>
-            <th>Category</th>
-            <th class="text-right">Budgeted</th>
-            <th class="d-none d-sm-block text-right">Activity</th>
-            <th class="text-right">Available</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @categories.each do |group, cats| %>
-            <tr class="tr-group">
-              <th><%= group.name %></th>
-              <th class="text-right data"><%= number_to_currency group.categories.inject(0.0){|sum,cat| sum + cat.budgeted} %></th>
-              <th class="text-right data"><%= number_to_currency group.categories.inject(0.0){|sum,cat| sum + cat.activity} %></th>
-              <th class="text-right data"><%= number_to_currency group.categories.inject(0.0){|sum,cat| sum + cat.balance} %></th>
+<% if user_signed_in? %>
+  <div class="row">
+    <div class="col-12 col-sm-9 scrollable-y">
+      <div class="table-responsive">
+        <table class="table table-sm table-notbreakline table-budget">
+          <thead>
+            <tr>
+              <th>Category</th>
+              <th class="text-right">Budgeted</th>
+              <th class="d-none d-sm-block text-right">Activity</th>
+              <th class="text-right">Available</th>
             </tr>
-            <% cats.each do |cat| %>
-              <tr onclick="show_category_sidebar(<%= cat.id %>)">
-                <td><%= link_to cat.name, cat %></td>
-                <td class="text-right">
-                  <!-- <%= number_to_currency cat.budgeted %> -->
-                  <%= form_tag(budget_category_path(cat), class: 'form-inline float-right') do %>
-                      <%= text_field_tag :budgeted, cat.budgeted, step: 0.01 %>
-                  <% end %>
-                </td>
-                <td class="text-right d-none d-sm-block"><%= number_to_currency cat.activity %></td>
-                <td class="text-right">
-                  <span class="badge badge-pill badge-lg <%= badge_color_category cat %>">
-                    <%= number_to_currency cat.balance %>
-                  </span>
-                </td>
+          </thead>
+          <tbody>
+            <% @categories.each do |group, cats| %>
+              <tr class="tr-group">
+                <th><%= group.name %></th>
+                <th class="text-right data"><%= number_to_currency group.categories.inject(0.0){|sum,cat| sum + cat.budgeted} %></th>
+                <th class="text-right data"><%= number_to_currency group.categories.inject(0.0){|sum,cat| sum + cat.activity} %></th>
+                <th class="text-right data"><%= number_to_currency group.categories.inject(0.0){|sum,cat| sum + cat.balance} %></th>
               </tr>
+              <% cats.each do |cat| %>
+                <tr onclick="show_category_sidebar(<%= cat.id %>)">
+                  <td><%= link_to cat.name, cat %></td>
+                  <td class="text-right">
+                    <!-- <%= number_to_currency cat.budgeted %> -->
+                    <%= form_tag(budget_category_path(cat), class: 'form-inline float-right') do %>
+                        <%= text_field_tag :budgeted, cat.budgeted, step: 0.01 %>
+                    <% end %>
+                  </td>
+                  <td class="text-right d-none d-sm-block"><%= number_to_currency cat.activity %></td>
+                  <td class="text-right">
+                    <span class="badge badge-pill badge-lg <%= badge_color_category cat %>">
+                      <%= number_to_currency cat.balance %>
+                    </span>
+                  </td>
+                </tr>
+              <% end %>
             <% end %>
-          <% end %>
-        </tbody>
-      </table>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="col-12 col-sm-3 scrollable-y">
+      <% @categories.each do |group,cats| %>
+        <% cats.each do |cat| %>
+          <div class="side_options_cat_<%= cat.id %>">
+
+            <% if cat.scheduled_transactions.where(date: Time.now.beginning_of_month..Time.now.end_of_month, done: false).any? %>  
+              <h3><%= cat.name%> </h3>
+              <table class="table table-bordered table-sm">
+                <thead>
+                  <tr>
+                    <td>Date</td>
+                    <td>Amount</td>
+                    <td>Account</td>
+                    <td>Payee</td>
+                  </tr>
+                </thead>
+                <tfoot>
+                  <tr>
+                    <td colspan="2">Total</td>
+                    <td><%= number_to_currency cat.scheduled_transactions.where(date: Time.now.beginning_of_month..Time.now.end_of_month, done: false).inject(0.0){|sum,st| sum + st.amount }%></td>
+                  </tr>
+                </tfoot>
+                <tbody>
+                  <% cat.scheduled_transactions.where(date: Time.now.beginning_of_month..Time.now.end_of_month, done: false).each do |st| %>
+                  <tr>
+                    <td><%= st.date.strftime("%d/%m/%Y") %></td>
+                    <td><%= st.payee.name %></td>
+                    <td><%= st.account.name %></td>
+                    <td><%= number_to_currency st.amount %></td>
+                  </tr>
+                  <% end %>
+                </tbody>
+              </table>
+
+              <h4>Goals</h4>
+              <% cat.goals.each do |goal| %>
+                <p><%= goal.inspect %></p>
+              <% end %>
+            <% end %>
+          </div>
+        <% end %>
+      <% end %>
     </div>
   </div>
-  <div class="col-12 col-sm-3 scrollable-y">
-    <% @categories.each do |group,cats| %>
-      <% cats.each do |cat| %>
-        <div class="side_options_cat_<%= cat.id %>">
-
-          <% if cat.scheduled_transactions.where(date: Time.now.beginning_of_month..Time.now.end_of_month, done: false).any? %>  
-            <h3><%= cat.name%> </h3>
-            <table class="table table-bordered table-sm">
-              <thead>
-                <tr>
-                  <td>Date</td>
-                  <td>Amount</td>
-                  <td>Account</td>
-                  <td>Payee</td>
-                </tr>
-              </thead>
-              <tfoot>
-                <tr>
-                  <td colspan="2">Total</td>
-                  <td><%= number_to_currency cat.scheduled_transactions.where(date: Time.now.beginning_of_month..Time.now.end_of_month, done: false).inject(0.0){|sum,st| sum + st.amount }%></td>
-                </tr>
-              </tfoot>
-              <tbody>
-                <% cat.scheduled_transactions.where(date: Time.now.beginning_of_month..Time.now.end_of_month, done: false).each do |st| %>
-                <tr>
-                  <td><%= st.date.strftime("%d/%m/%Y") %></td>
-                  <td><%= st.payee.name %></td>
-                  <td><%= st.account.name %></td>
-                  <td><%= number_to_currency st.amount %></td>
-                </tr>
-                <% end %>
-              </tbody>
-            </table>
-
-            <h4>Goals</h4>
-            <% cat.goals.each do |goal| %>
-              <p><%= goal.inspect %></p>
-            <% end %>
-          <% end %>
-        </div>
-      <% end %>
-    <% end %>
-  </div>
-</div>
+<% end %>
