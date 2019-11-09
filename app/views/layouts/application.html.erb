@@ -160,5 +160,21 @@
         </div>
       </div>
     </div>
+    <div class="d-block d-sm-none fixed-bottom text-center">
+      <div class="row bottom-menu">
+        <div class="col bottom-menu-item">
+          <%= link_to "Budget", pages_index_path %>
+        </div>
+        <div class="col bottom-menu-item">
+          <%= link_to "Accounts", mobile_accounts_path %>
+        </div>
+        <div class="col bottom-menu-item">
+          <%= link_to "+ transaction", new_transaction_path %>
+        </div>
+        <div class="col bottom-menu-item">
+          <%= link_to "+ transfer", new_transfer_path %>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

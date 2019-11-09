@@ -29,6 +29,9 @@ Rails.application.routes.draw do
   end
   resources :groups
   resources :accounts do
+    collection do
+      get :mobile
+    end
     member do
       get :transactions
     end

@@ -16,7 +16,7 @@
               <tr class="tr-group">
                 <th><%= group.name %></th>
                 <th class="text-right data"><%= number_to_currency group.categories.inject(0.0){|sum,cat| sum + cat.budgeted} %></th>
-                <th class="text-right data"><%= number_to_currency group.categories.inject(0.0){|sum,cat| sum + cat.activity} %></th>
+                <th class="d-none d-sm-block text-right data"><%= number_to_currency group.categories.inject(0.0){|sum,cat| sum + cat.activity} %></th>
                 <th class="text-right data"><%= number_to_currency group.categories.inject(0.0){|sum,cat| sum + cat.balance} %></th>
               </tr>
               <% cats.each do |cat| %>

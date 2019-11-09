@@ -1,0 +1,47 @@
+<div class="scrollable-y col-accounts">
+    <h3>Accounts</h3>
+    <table class="table table-sm table-accounts">
+        <thead>
+        <tr>
+            <th>Account</th>
+            <th class="text-right">Balance</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr>
+            <td>Assets</td>
+            <td class="text-right">
+                <span class="badge badge-pill badge-lg">
+                <%= number_to_currency current_budget.accounts.inject(0.0){|sum,x| x.balance >= 0 ? sum + x.balance : sum }%></td>
+                </span>
+            </tr>
+            <tr>
+            <td>Debts</td>
+            <td class="text-right">
+                <span class="badge badge-pill badge-lg">
+                <%= number_to_currency current_budget.accounts.inject(0.0){|sum,x| x.balance < 0 ? sum + x.balance : sum }%></td>
+                </span>
+            </tr>
+            <tr>
+            <td>All accounts / Net Worth</td>
+            <td class="text-right">
+                <span class="badge badge-pill badge-lg">
+                <%= number_to_currency current_budget.accounts.inject(0.0){|sum,x| sum + x.balance }%></td>
+                </span>
+            </tr>
+        <% current_budget.accounts.order(name: :asc).each do |acc| %>
+            <tr>
+                <td>
+                <%= link_to acc.name, transactions_account_path(acc) %>
+                <!--<%= link_to '+', new_transaction_path(account_id: acc), class: 'btn btn-outline-light btn-sm float-right' %>-->
+                </td>
+                <td class="text-right">
+                <span class="badge badge-pill badge-lg <%= badge_color_account acc.balance %>">
+                    <%= number_to_currency acc.balance %>
+                </span>
+                </td>
+            </tr>
+        <% end %>
+        </tbody>
+    </table>      
+</div>
