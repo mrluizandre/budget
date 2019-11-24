@@ -19,7 +19,7 @@ module ApplicationHelper
 		bigger = current_month_scheduled_amount > goal_amount ? current_month_scheduled_amount : goal_amount
 		puts bigger.to_s.on_yellow
 
-		if cat.budgeted < goal_amount or cat.balance < current_month_scheduled_amount
+		if (cat.budgeted < goal_amount and goal_amount > 0) or cat.balance < current_month_scheduled_amount
 			"badge-warning"
 		elsif cat.balance > 0
 			'badge-success'
