@@ -6,7 +6,10 @@ Rails.application.routes.draw do
       get :set_current
     end
   end
-  devise_for :users
+  devise_for :users, controllers: {
+    sessions: 'users/sessions'
+  }
+
   resources :scheduled_transactions do
     member do
       get :enter_now

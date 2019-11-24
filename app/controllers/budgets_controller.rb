@@ -2,6 +2,7 @@ class BudgetsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_budget, only: [:show, :edit, :update, :destroy]
   skip_before_action :check_if_budget_set, only: [:index, :set_current]
+  skip_before_action :set_to_be_budgeted, only: [:index, :set_current]
 
   def set_current
     budget = Budget.find_by(id: params[:id])

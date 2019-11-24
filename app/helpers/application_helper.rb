@@ -8,8 +8,13 @@ module ApplicationHelper
 	end
 	
 	def badge_color_category(cat)
-		if cat.balance < cat.scheduled_transactions.where(date: Time.now.beginning_of_month..Time.now.end_of_month, done: false).inject(0.0){|sum,st| sum + (-st.amount)}
-			'badge-warning'
+		current_month_scheduled_amount = cat.scheduled_transactions.where(date: Time.now.beginning_of_month..Time.now.end_of_month, done: false).inject(0.0){|sum,st| sum + (-st.amount)}
+		goal_amount = cat.goals.inject(0.0){|sum,st| sum + st.month_amount}
+
+		bigger = current_month_scheduled_amount > goal_amount ? current_month_scheduled_amount : goal_amount
+
+		if cat.balance < bigger
+			"badge-warning"
 		elsif cat.balance > 0
 			'badge-success'
 		elsif cat.balance == 0

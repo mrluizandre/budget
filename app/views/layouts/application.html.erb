@@ -60,6 +60,7 @@
           </ul>
         </div>
 
+        <% if @to_be_budgeted %>
         <div class="navbar-tobebudgeted <%= to_be_budgeted_color @to_be_budgeted.balance %>">
           <div class="row">
             <div class="col-5">
@@ -84,6 +85,8 @@
             </div>
           </div>
         </div>
+        <% end %>
+
       </nav>
     <% end %>
     <div class="container-fluid">
