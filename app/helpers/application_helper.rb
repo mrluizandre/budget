@@ -11,9 +11,15 @@ module ApplicationHelper
 		current_month_scheduled_amount = cat.scheduled_transactions.where(date: Time.now.beginning_of_month..Time.now.end_of_month, done: false).inject(0.0){|sum,st| sum + (-st.amount)}
 		goal_amount = cat.goals.inject(0.0){|sum,st| sum + st.month_amount}
 
-		bigger = current_month_scheduled_amount > goal_amount ? current_month_scheduled_amount : goal_amount
+		puts cat.name.on_green
 
-		if cat.balance < bigger
+		puts current_month_scheduled_amount.to_s.on_red
+		puts goal_amount.to_s.on_blue
+		
+		bigger = current_month_scheduled_amount > goal_amount ? current_month_scheduled_amount : goal_amount
+		puts bigger.to_s.on_yellow
+
+		if cat.budgeted < goal_amount or cat.balance < current_month_scheduled_amount
 			"badge-warning"
 		elsif cat.balance > 0
 			'badge-success'

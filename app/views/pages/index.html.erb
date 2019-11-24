@@ -87,7 +87,7 @@
                   <strong><%= goal.goal_type.titleize %></strong>
                   <%= number_to_currency goal.amount %>
                   <%= l goal.date if goal.date.present? %>
-                  <%= goal.percentage %>%
+                  <%= goal.percentage %> <% if goal.percentage.present? %> % <%end%>
                 </div>
               <% end %>
 
