@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   end
 
   get 'pages/index'
+  get 'pages/future'
   resources :transfers
   resources :transactions
   resources :months

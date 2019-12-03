@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_02_152613) do
+ActiveRecord::Schema.define(version: 2019_12_03_120956) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(version: 2019_10_02_152613) do
     t.boolean "to_be_budgeted", default: false
     t.bigint "linked_credit_card_account_id"
     t.bigint "group_id"
+    t.boolean "count_in_the_statistics", default: true
     t.index ["group_id"], name: "index_categories_on_group_id"
     t.index ["linked_credit_card_account_id"], name: "index_categories_on_linked_credit_card_account_id"
   end

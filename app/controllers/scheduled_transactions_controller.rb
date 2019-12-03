@@ -10,8 +10,8 @@ class ScheduledTransactionsController < ApplicationController
   # GET /scheduled_transactions
   # GET /scheduled_transactions.json
   def index
-    @scheduled_transactions = ScheduledTransaction.where(done: false).where(done: false).order(date: :asc).group_by{|a| a.date.strftime("%B/%Y")}
-    @scheduled_transactions_not_grouped = ScheduledTransaction.where(done: false).where(done: false)
+    @scheduled_transactions = ScheduledTransaction.where(done: false).order(date: :asc).group_by{|a| a.date.strftime("%B/%Y")}
+    @scheduled_transactions_not_grouped = ScheduledTransaction.where(done: false)
   end
 
   # GET /scheduled_transactions/1

@@ -52,6 +52,9 @@
             <li class="nav-item">
               <%= link_to 'Goals', goals_path, class: 'nav-link ' + navbar_active('goals') %>
             </li>
+            <li class="nav-item">
+              <%= link_to 'Future', pages_future_path, class: 'nav-link ' + navbar_active('pages') %>
+            </li>
             <% if user_signed_in? %>
               <li class="nav-item">
               <%= link_to('Logout', destroy_user_session_path, method: :delete, class: 'nav-link' ) %>        
