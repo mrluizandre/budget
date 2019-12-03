@@ -8,11 +8,11 @@
     <%= f.input :budgeted %>
     <%= f.input :activity %>
     <%= f.input :balance %>
-    <%= f.input :count_in_the_statistics %>
+    <%= f.input :count_in_the_statistics, as: :boolean %>
     <%= f.association :group %>
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit %>
+    <%= f.button :submit, class: 'btn btn-primary' %>
   </div>
 <% end %>
