@@ -4,8 +4,11 @@ class CategoriesController < ApplicationController
 
 
   def budget
-    Category.budget(eval(params[:budgeted]).to_f - @category.budgeted,@category)
+    calculator = Dentaku::Calculator.new
+    Category.budget(calculator.evaluate!(params[:budgeted].gsub(',','.')).round(2) - @category.budgeted,@category)
     redirect_to root_path
+  rescue Dentaku::UnboundVariableError, Dentaku::ParseError
+    redirect_to root_path, alert: "The value/expression typed is invalid."
   end
 
   # GET /categories

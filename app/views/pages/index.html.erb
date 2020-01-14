@@ -28,7 +28,7 @@
                   <td class="text-right">
                     <!-- <%= number_to_currency cat.budgeted %> -->
                     <%= form_tag(budget_category_path(cat), class: 'form-inline float-right') do %>
-                        <%= text_field_tag :budgeted, cat.budgeted, step: 0.01 %>
+                        <%= text_field_tag :budgeted, ('%.2f' % cat.budgeted).gsub('.',','), step: 0.01 %>
                     <% end %>
                   </td>
                   <td class="text-right d-none d-sm-block"><%= number_to_currency cat.activity %></td>

@@ -83,3 +83,5 @@ gem 'colorize', '~> 0.8.1'
 gem 'whenever', '~> 1.0', require: false
 gem 'bcrypt', '3.1.12'
 gem 'devise', '~> 4.6', '>= 4.6.2'
+
+gem 'dentaku', '~> 3.3', '>= 3.3.4'
