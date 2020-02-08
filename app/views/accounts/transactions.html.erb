@@ -36,9 +36,17 @@
 
   <tbody>
 
+    <!-- TODO botão pra mostrar as transações dos meses que estão escondidos -->
+    <tr style="background-color: #f0f0f0; color: #888888; text-align: center">
+      <td colspan="6"><a href="javascript:show_traction_rows_hidden();">Show all ∨</a></td>
+    </tr>
     <% @scheduled_transactions.each do |month,scheduled_transactions| %>
+
       <% scheduled_transactions.each do |scheduled_transaction|%>
-        <tr style="background-color: #f0f0f0; color: #888888">
+        <tr
+          style="background-color: #f0f0f0; color: #888888;"
+          class="<%= 'transaction_row_hidden' unless month == @scheduled_transactions.to_a.last[0] %>"
+          >
           <td><%= scheduled_transaction.date.strftime("%d/%m/%Y") %></td>
           <td><%= scheduled_transaction.payee.name %></td>
           <td><%= scheduled_transaction.category.name %></td>
@@ -53,7 +61,7 @@
           </td>
         </tr>
       <% end %>
-      <tr style="background-color: #f0f0f0; color: #888888">
+      <tr style="background-color: #f0f0f0; color: #888888;" class="<%= 'transaction_row_hidden' unless month == @scheduled_transactions.to_a.last[0] %>">
         <th colspan="4" class="text-center"><%= month %></th>
         <th class="text-right"><%= number_to_currency scheduled_transactions.inject(0.0){|sum,st| sum + st.amount} %></th>
         <th></th>
@@ -84,3 +92,14 @@
     <% end %>
   </tbody>
 </table>
+
+<script>
+  function show_traction_rows_hidden(){
+    let rows = document.querySelectorAll('.transaction_row_hidden');
+
+    rows.forEach(element => {
+      element.style.display = 'table-row';
+    });
+  }
+
+</script>
