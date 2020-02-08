@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_03_120956) do
+ActiveRecord::Schema.define(version: 2020_02_08_022548) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,23 @@ ActiveRecord::Schema.define(version: 2019_12_03_120956) do
     t.datetime "updated_at", null: false
     t.bigint "budget_id"
     t.index ["budget_id"], name: "index_accounts_on_budget_id"
+  end
+
+  create_table "admins", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer "sign_in_count", default: 0, null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.inet "current_sign_in_ip"
+    t.inet "last_sign_in_ip"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_admins_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
   end
 
   create_table "budgets", force: :cascade do |t|
@@ -45,6 +62,7 @@ ActiveRecord::Schema.define(version: 2019_12_03_120956) do
     t.bigint "linked_credit_card_account_id"
     t.bigint "group_id"
     t.boolean "count_in_the_statistics", default: true
+    t.text "note"
     t.index ["group_id"], name: "index_categories_on_group_id"
     t.index ["linked_credit_card_account_id"], name: "index_categories_on_linked_credit_card_account_id"
   end
@@ -57,6 +75,27 @@ ActiveRecord::Schema.define(version: 2019_12_03_120956) do
     t.datetime "updated_at", null: false
     t.index ["from_id"], name: "index_category_transactions_on_from_id"
     t.index ["to_id"], name: "index_category_transactions_on_to_id"
+  end
+
+  create_table "contacts", force: :cascade do |t|
+    t.date "date"
+    t.string "contact_type"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.string "contacters_name"
+    t.index ["user_id"], name: "index_contacts_on_user_id"
+  end
+
+  create_table "contributions", force: :cascade do |t|
+    t.date "month"
+    t.date "payment_date"
+    t.decimal "amount", precision: 8, scale: 2
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_contributions_on_user_id"
   end
 
   create_table "goals", force: :cascade do |t|
@@ -78,6 +117,15 @@ ActiveRecord::Schema.define(version: 2019_12_03_120956) do
     t.index ["budget_id"], name: "index_groups_on_budget_id"
   end
 
+  create_table "judicial_actions", force: :cascade do |t|
+    t.text "description"
+    t.date "start_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "process_number"
+    t.string "name_filed_judicial_action"
+  end
+
   create_table "months", force: :cascade do |t|
     t.date "month"
     t.decimal "income", precision: 8, scale: 2, default: "0.0"
@@ -94,6 +142,15 @@ ActiveRecord::Schema.define(version: 2019_12_03_120956) do
     t.datetime "updated_at", null: false
     t.bigint "budget_id"
     t.index ["budget_id"], name: "index_payees_on_budget_id"
+  end
+
+  create_table "representeds", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "judicial_action_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["judicial_action_id"], name: "index_representeds_on_judicial_action_id"
+    t.index ["user_id"], name: "index_representeds_on_user_id"
   end
 
   create_table "scheduled_transactions", force: :cascade do |t|
@@ -113,6 +170,15 @@ ActiveRecord::Schema.define(version: 2019_12_03_120956) do
     t.index ["payee_id"], name: "index_scheduled_transactions_on_payee_id"
   end
 
+  create_table "scholarities", force: :cascade do |t|
+    t.string "degree"
+    t.string "course"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_scholarities_on_user_id"
+  end
+
   create_table "stats", force: :cascade do |t|
     t.decimal "budgeted", precision: 8, scale: 2
     t.decimal "activity", precision: 8, scale: 2
@@ -123,6 +189,22 @@ ActiveRecord::Schema.define(version: 2019_12_03_120956) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["category_id"], name: "index_stats_on_category_id"
+  end
+
+  create_table "steps", force: :cascade do |t|
+    t.text "description"
+    t.date "date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "judicial_action_id"
+    t.string "name_entered_new_step"
+    t.index ["judicial_action_id"], name: "index_steps_on_judicial_action_id"
+  end
+
+  create_table "stocking_organs", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "transactions", force: :cascade do |t|
@@ -177,10 +259,12 @@ ActiveRecord::Schema.define(version: 2019_12_03_120956) do
   add_foreign_key "goals", "categories"
   add_foreign_key "groups", "budgets"
   add_foreign_key "payees", "budgets"
+  add_foreign_key "representeds", "judicial_actions"
   add_foreign_key "scheduled_transactions", "accounts"
   add_foreign_key "scheduled_transactions", "categories"
   add_foreign_key "scheduled_transactions", "payees"
   add_foreign_key "stats", "categories"
+  add_foreign_key "steps", "judicial_actions"
   add_foreign_key "transactions", "accounts"
   add_foreign_key "transactions", "categories"
   add_foreign_key "transactions", "payees"

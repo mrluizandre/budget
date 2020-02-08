@@ -81,36 +81,49 @@
 
             <% end %>
 
-              <h4>Goals</h4>
-              <% cat.goals.each do |goal| %>
-                <div class="card">
-                  <strong><%= goal.goal_type.titleize %></strong>
-                  <%= number_to_currency goal.amount %>
-                  <%= l goal.date if goal.date.present? %>
-                  <%= goal.percentage %> <% if goal.percentage.present? %> % <%end%>
+            <%= simple_form_for(cat) do |f| %>
+              <%= f.error_notification %>
+              <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+              <div class="form-inputs">
+                <%= f.input :note %>
+              </div>
+
+              <div class="form-actions">
+                <%= f.button :submit, class: 'btn btn-outline-primary' %>
+              </div>
+            <% end %>
+
+            <h4>Goals</h4>
+            <% cat.goals.each do |goal| %>
+              <div class="card">
+                <strong><%= goal.goal_type.titleize %></strong>
+                <%= number_to_currency goal.amount %>
+                <%= l goal.date if goal.date.present? %>
+                <%= goal.percentage %> <% if goal.percentage.present? %> % <%end%>
+              </div>
+            <% end %>
+
+            <button class="btn btn-sm btn-outline-primary" onclick="javascript:goalSlideToggle(event);">Add goal</button>
+
+            <div class="slideToggle">
+              <%= simple_form_for(cat.goals.build) do |f| %>
+                <%= f.error_notification %>
+                <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+                <div class="form-inputs">
+                  <%= f.association :category, collection: current_budget.categories.order(name: :asc), input_html: {class: 'select2'} %>
+                  <%= f.input :goal_type, collection: Goal.goal_types.keys.map{|gt|[gt.titleize,gt]} %>
+                  <%= f.input :amount %>
+                  <%= f.input :date, as: :string, input_html: { class: 'datepicker'} %>
+                  <%= f.input :percentage %>
+                </div>
+
+                <div class="form-actions">
+                  <%= f.button :submit, class: 'btn btn-outline-primary' %>
                 </div>
               <% end %>
-
-              <button class="btn btn-sm btn-outline-primary" onclick="javascript:goalSlideToggle(event);">Add goal</button>
-
-              <div class="slideToggle">
-                <%= simple_form_for(cat.goals.build) do |f| %>
-                  <%= f.error_notification %>
-                  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
-
-                  <div class="form-inputs">
-                    <%= f.association :category, collection: current_budget.categories.order(name: :asc), input_html: {class: 'select2'} %>
-                    <%= f.input :goal_type, collection: Goal.goal_types.keys.map{|gt|[gt.titleize,gt]} %>
-                    <%= f.input :amount %>
-                    <%= f.input :date, as: :string, input_html: { class: 'datepicker'} %>
-                    <%= f.input :percentage %>
-                  </div>
-
-                  <div class="form-actions">
-                    <%= f.button :submit, class: 'btn btn-outline-primary' %>
-                  </div>
-                <% end %>
-              </div>
+            </div>
           </div>
         <% end %>
       <% end %>

@@ -1,4 +1,4 @@
-class CategoriesController < ApplicationController 
+class CategoriesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_category, only: [:show, :edit, :update, :destroy,:budget]
 
@@ -79,6 +79,6 @@ class CategoriesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def category_params
-      params.require(:category).permit(:name, :budgeted, :activity, :balance, :group_id, :count_in_the_statistics)
+      params.require(:category).permit(:name, :budgeted, :activity, :balance, :group_id, :count_in_the_statistics, :note)
     end
 end

@@ -17,6 +17,11 @@
   <%= number_to_currency @category.balance %>
 </p>
 
+<p>
+  <strong>note:</strong>
+  <%= @category.note %>
+</p>
+
 
 <% @category.transactions.group_by { |m| m.date.beginning_of_month }.sort_by{|s| s[0] }.reverse!.each do |date, transactions| %>
 	<h2><%= date.strftime('%B %Y') %></h2>
