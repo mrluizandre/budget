@@ -3,6 +3,7 @@
   <thead>
     <tr>
       <th>Date</th>
+      <th>Account</th>
       <th>Payee</th>
       <th>Category</th>
       <th>Note</th>
@@ -15,6 +16,7 @@
       <% scheduled_transactions.each do |scheduled_transaction|%>
         <tr>
           <td><%= scheduled_transaction.date.strftime("%d/%m/%Y") %></td>
+          <td><%= scheduled_transaction.account.name %></td>
           <td><%= scheduled_transaction.payee.name %></td>
           <td><%= scheduled_transaction.category.name %></td>
           <td><%= scheduled_transaction.note %></td>
@@ -29,7 +31,7 @@
         </tr>
       <% end %>
       <tr style="background-color: #f0f0f0; color: #888888">
-        <th colspan="4" class="text-center"><%= month %></th>
+        <th colspan="5" class="text-center"><%= month %></th>
         <th class="text-right"><%= number_to_currency scheduled_transactions.inject(0.0){|sum,st| sum + st.amount} %></th>
         <th></th>
       </tr>
