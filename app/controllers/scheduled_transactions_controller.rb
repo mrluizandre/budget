@@ -4,7 +4,8 @@ class ScheduledTransactionsController < ApplicationController
 
   def enter_now
     @scheduled_transaction.create_transaction(due_date: Date.today)
-    redirect_to transactions_account_path(@scheduled_transaction.account), notice: 'Transaction was successfully created.' 
+    destination = request.referrer.present? ? request.referrer : transactions_account_path(@scheduled_transaction.account)
+    redirect_to destination, notice: 'Transaction was successfully created.'
   end
 
   # GET /scheduled_transactions
@@ -26,7 +27,7 @@ class ScheduledTransactionsController < ApplicationController
 
   def new_by_installments
   end
-  
+
   def create_by_installments
     ScheduledTransaction.create_by_installments(
       n_installments: create_by_installments_params[:n_installments],
