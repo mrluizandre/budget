@@ -1,24 +1,15 @@
-# README
+# Budget
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Personal budgeting app based on the envelope method inpired by YNAB with addional features to Brazilian users.
 
-Things you may want to cover:
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## Main features and Entities
+* Multiple budgets
+* Multiple accounts
+* Transactions
+* Transactions groups
+* Payees
+* Scheduled Transactions
+* Various types of goals
+* Credit cards
+* Monthly balance, budgeted balance and activity balance
